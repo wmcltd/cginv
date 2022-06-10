@@ -247,7 +247,7 @@ export default {
               itemArray = soapBody.GetInventoryLevelsResponse.Inventory.PartInventoryArray.PartInventory
               itemArray.forEach(element => {
                 if(element.partColor){color = element.partColor}
-                if(element.partSize){size = element.partSize}
+                if(element.labelSize){size = element.labelSize}
                 this.partDesc = element.partDescription
                 this.items.push({'partID': element.partId, 'attributeColor': color, 'attributeSize': size, 'quantityAvailable': element.quantityAvailable.Quantity.value})
               });
