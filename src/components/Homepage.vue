@@ -92,7 +92,21 @@ export default {
           version: '1.2.1',
           username: '169228',
           pwd: '4WKEHRPv'
-        }
+        },
+        {
+          supplierId: 'Koozie Group',
+          endpoint: 'https://services.kooziegroup.com/soa-infra/services/external/promostandards/inventory_v2.0.0?WSDL',
+          version: '2.0.0',
+          username: 'SYSCORPUJT',
+          pwd: 'mmklsouV2r'
+        },
+        {
+          supplierId: 'HIT Promotional Products',
+          endpoint: 'https://ppds.hitpromo.net/inventoryV2RC4?ws=1',
+          version: '2.0.0',
+          username: '192363',
+          pwd: '50bae7cd5bb86dab12a9a75502202244'
+        },
       ],
       productID: '',
       //vendorEndpoint: 'https://api.primeline.com',
