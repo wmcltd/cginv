@@ -85,6 +85,13 @@ export default {
           version: '1.2.1',
           username: '1017565',
           pwd: '01fdc894-9cd4-42d5-a5ab-2388bc614252'
+        },
+        {
+          supplierId: 'Spector',
+          endpoint: 'https://www.spectorapps.com/pws_product/Inventory/Inventory.php',
+          version: '1.2.1',
+          username: '169228',
+          pwd: '4WKEHRPv'
         }
       ],
       productID: '',
