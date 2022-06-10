@@ -95,7 +95,7 @@ export default {
         },
         {
           supplierId: 'Koozie Group',
-          endpoint: 'https://services.kooziegroup.com/soa-infra/services/external/promostandards/inventory_v2.0.0?WSDL',
+          endpoint: 'https://services.kooziegroup.com/soa-infra/services/external/promostandards/inventory_v2.0.0',
           version: '2.0.0',
           username: 'SYSCORPUJT',
           pwd: 'mmklsouV2r'
@@ -156,24 +156,62 @@ export default {
     getInv() {
       this.items = []
       const supplierDataObj = this.supplierData.filter(e=>{
-        return e.supplierId == this.supplier
+        return e.supplierId.toUpperCase() == this.supplier.toUpperCase()
       })
       console.log('target Supplier', this.supplier)
       console.log('supplierFound', supplierData)
       const supplierData = supplierDataObj[0]
      // console.log(supplierData0, supplierData)
-      var qry = `<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" >
-    <soap:Body>
-      <Request xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.promostandards.org/WSDL/InventoryService/1.0.0/">
-        <wsVersion>`+supplierData.version +`</wsVersion>
-        <id>` +supplierData.username + `</id>
-        <password>` + supplierData.pwd + `</password>
-        <productID>` +this.productID.toUpperCase() + `</productID>
-        <productIDtype>Supplier</productIDtype>
-      </Request>
-    </soap:Body>
-  </soap:Envelope>`;
-      
+    //  var wsdlVer = '1.2.1'
+    //  if(supplierData.version == '2.0.0'){
+    //    wsdlVer = '2.0.0';
+    //  }
+   
+      var qry = '';
+      if(supplierData.version == '1.2.1'){
+          qry = `<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" >
+        <soap:Body>
+          <Request xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.promostandards.org/WSDL/InventoryService/1.0.0/">
+            <wsVersion>`+supplierData.version +`</wsVersion>
+            <id>` +supplierData.username + `</id>
+            <password>` + supplierData.pwd + `</password>
+            <productID>` +this.productID.toUpperCase() + `</productID>
+            <productIDtype>Supplier</productIDtype>
+          </Request>
+        </soap:Body>
+      </soap:Envelope>`;
+      }else{
+        //version 2
+        qry = `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.promostandards.org/WSDL/InventoryService/2.0.0/" xmlns:shar="http://www.promostandards.org/WSDL/InventoryService/2.0.0/SharedObjects/">
+              <soapenv:Header/>
+              <soapenv:Body>
+
+          <GetInventoryLevelsRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.promostandards.org/WSDL/Inventory/2.0.0/">
+            <wsVersion xmlns="http://www.promostandards.org/WSDL/Inventory/2.0.0/SharedObjects/">`+ supplierData.version + `</wsVersion>
+            <id xmlns="http://www.promostandards.org/WSDL/Inventory/2.0.0/SharedObjects/">` + supplierData.username + `</id>
+            <password xmlns="http://www.promostandards.org/WSDL/Inventory/2.0.0/SharedObjects/">` + supplierData.pwd + `</password>
+            <productId xmlns="http://www.promostandards.org/WSDL/Inventory/2.0.0/SharedObjects/">` + this.productID.toUpperCase() + `</productId>
+          
+          </GetInventoryLevelsRequest>
+
+          </soapenv:Body>
+          </soapenv:Envelope>`;
+      }
+//    qry = `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.promostandards.org/WSDL/InventoryService/`+wsdlVer+`/" xmlns:shar="http://www.promostandards.org/WSDL/InventoryService/`+wsdlVer+`/SharedObjects/">
+//     <soapenv:Header/>
+//     <soapenv:Body>
+
+// <GetInventoryLevelsRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.promostandards.org/WSDL/Inventory/`+wsdlVer+`/">
+//   <wsVersion xmlns="http://www.promostandards.org/WSDL/Inventory/`+wsdlVer+`/SharedObjects/">`+supplierData.version +`</wsVersion>
+//   <id xmlns="http://www.promostandards.org/WSDL/Inventory/`+wsdlVer+`/SharedObjects/">` +supplierData.username + `</id>
+//   <password xmlns="http://www.promostandards.org/WSDL/Inventory/`+wsdlVer+`/SharedObjects/">` + supplierData.pwd + `</password>
+//   <productId xmlns="http://www.promostandards.org/WSDL/Inventory/`+wsdlVer+`/SharedObjects/">` +this.productID.toUpperCase() + `</productId>
+ 
+// </GetInventoryLevelsRequest>
+
+// </soapenv:Body>
+// </soapenv:Envelope>`;
+      //console.log(qry, query)
       var config = {
         method: 'post',
        // url: '/default/promostandardsProxy?url='+supplierData.endpoint,
@@ -199,28 +237,48 @@ export default {
                 throw err;
             }
             // Get the soap body object
-            var soapBody=result.Envelope.Body.Reply;
-            console.log('BODY:', soapBody)
-            //var productID = soapBody.productID;
-           
-            var itemArray = soapBody.ProductVariationInventoryArray.ProductVariationInventory
-            console.log('itemArray', typeof itemArray, itemArray)
-            //this.invResponse = itemArray
-            console.log('length of itemArray', itemArray.length)
-            /** parse itemArray into items object **/
+            console.log('altbody', result.Envelope.Body)
+            var soapBody = ''
+            var itemArray = []
             var color = ''
             var size = ''
-            if(itemArray.length>0){
+            if(supplierData.version == '2.0.0'){
+              soapBody = result.Envelope.Body
+              itemArray = soapBody.GetInventoryLevelsResponse.Inventory.PartInventoryArray.PartInventory
               itemArray.forEach(element => {
-                if(element.attributeColor){color = element.attributeColor}
-                if(element.attributeSize){size = element.attributeSize}
+                if(element.partColor){color = element.partColor}
+                if(element.partSize){size = element.partSize}
                 this.partDesc = element.partDescription
-                this.items.push({'partID': element.partID, 'attributeColor': color, 'attributeSize': size, 'quantityAvailable': element.quantityAvailable})
+                this.items.push({'partID': element.partId, 'attributeColor': color, 'attributeSize': size, 'quantityAvailable': element.quantityAvailable.Quantity.value})
               });
             }else{
-              if(itemArray.attributeColor){color = itemArray.attributeColor}
-              this.partDesc = itemArray.partDescription
-              this.items.push({'partID': itemArray.partID, 'attributeColor': color, 'quantityAvailable': itemArray.quantityAvailable})
+              soapBody=result.Envelope.Body.Reply;
+              itemArray = soapBody.ProductVariationInventoryArray.ProductVariationInventory
+
+            
+            
+            console.log('BODY:', soapBody)
+            console.log('itemArray', itemArray)
+            //var productID = soapBody.productID;
+           
+            // var itemArray = soapBody.ProductVariationInventoryArray.ProductVariationInventory
+            // console.log('itemArray', typeof itemArray, itemArray)
+            // //this.invResponse = itemArray
+            // console.log('length of itemArray', itemArray.length)
+            /** parse itemArray into items object **/
+           
+              if(itemArray.length>0){
+                itemArray.forEach(element => {
+                  if(element.attributeColor){color = element.attributeColor}
+                  if(element.attributeSize){size = element.attributeSize}
+                  this.partDesc = element.partDescription
+                  this.items.push({'partID': element.partID, 'attributeColor': color, 'attributeSize': size, 'quantityAvailable': element.quantityAvailable})
+                });
+              }else{
+                if(itemArray.attributeColor){color = itemArray.attributeColor}
+                this.partDesc = itemArray.partDescription
+                this.items.push({'partID': itemArray.partID, 'attributeColor': color, 'quantityAvailable': itemArray.quantityAvailable})
+              }
             }
             //this.items = itemArray
             console.log('items', this.items)
