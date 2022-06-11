@@ -18,10 +18,12 @@
           v-model="supplier"
         ></v-select>
       </v-col>
-      <v-col>  
+      <v-col cols=6>  
     <v-text-field label="Enter Item Id" v-model=productID clearable />
     <v-btn small color='primary' :disabled="disabled" @click="getInv()">Search Inventory</v-btn>
+     <v-col cols=6 v-if = "errorMsg.length>0"><span class="err" >{{errorMsg}}</span></v-col>
       </v-col>
+     
     </v-row>
     <!-- <v-btn @click="getData('D100')">data</v-btn> -->
     
@@ -43,8 +45,12 @@
       </v-data-table>
       </v-col>
     </v-row>
-   
-
+    <v-row>
+      <v-col cols=10>
+      <p style="font-size:1rem; color:#DEDEDE;">RawData:</p>
+      <p style="font-size:.8rem; color:#DEDEDE;">{{rawData}}</p>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -54,8 +60,9 @@ import xml2js from 'xml2js';
 export default {
   data() {
     return {
-     // disabled: true,
+      
       overlay: false,
+      errorMsg: '',
       supplier: '',
       supplierData: [
         { 
@@ -108,6 +115,7 @@ export default {
           pwd: '50bae7cd5bb86dab12a9a75502202244'
         },
       ],
+      rawData: '',
       productID: '',
       //vendorEndpoint: 'https://api.primeline.com',
       invResponse: '',
@@ -229,6 +237,8 @@ export default {
         console.log('RESPONSE:', JSON.stringify(response.data))
         // this.invResponse = JSON.stringify(response.data)
         var xml = response.data
+               
+
        // xml = xml.toString().replace("\ufeff", "");
         // convert XML to JSON
         var options = {explicitArray: false, tagNameProcessors: [xml2js.processors.stripPrefix] };
@@ -236,25 +246,54 @@ export default {
             if(err) {
                 throw err;
             }
+            // if(result.Envelope.Body.GetInventoryLevelsResponse.ServiceMessageArray.ServiceMessage != undefined){
+                
+            // }
+            try{
+                this.errorMsg = result.Envelope.Body.GetInventoryLevelsResponse.ServiceMessageArray.ServiceMessage.description
+                this.overlay=false
+            }catch(e){
+                //no errors
+                this.errorMsg = ''
+            }
+            if(supplierData.version == '1.2.1'){
+              try{
+                this.errorMsg = result.Envelope.Body.Request.errorMessage
+                this.overlay=false
+              }catch(e){
+                //no errors
+                this.errorMsg = ''
+              }
+            }
             // Get the soap body object
             console.log('altbody', result.Envelope.Body)
             var soapBody = ''
             var itemArray = []
             var color = ''
             var size = ''
-            if(supplierData.version == '2.0.0'){
+            var quantityAvailable = ''
+            if(supplierData.version == '2.0.0'){ //inventory version 2.0.0
               soapBody = result.Envelope.Body
               itemArray = soapBody.GetInventoryLevelsResponse.Inventory.PartInventoryArray.PartInventory
+              this.rawData = itemArray
+              
               itemArray.forEach(element => {
-                if(element.partColor){color = element.partColor}
-                if(element.labelSize){size = element.labelSize}
+                if('partColor' in element){color = element.partColor}
+                if('labelSize' in itemArray){size = element.labelSize}
+                if(element.quantityAvailable.Quantity.value){
+                  quantityAvailable = element.quantityAvailable.Quantity.value
+                }else if('quantityAvailable' in itemArray){
+                    quantityAvailable = element.quantityAvailable.Quantity.value
+                }else{
+                  quantityAvailable = 'N/A'
+                }
                 this.partDesc = element.partDescription
-                this.items.push({'partID': element.partId, 'attributeColor': color, 'attributeSize': size, 'quantityAvailable': element.quantityAvailable.Quantity.value})
+                this.items.push({'partID': element.partId, 'attributeColor': color, 'attributeSize': size, 'quantityAvailable': quantityAvailable})
               });
-            }else{
+            }else{ //inventory version 1.2.1
               soapBody=result.Envelope.Body.Reply;
               itemArray = soapBody.ProductVariationInventoryArray.ProductVariationInventory
-
+              this.rawData = itemArray
             
             
             console.log('BODY:', soapBody)
@@ -289,7 +328,7 @@ export default {
             
            // console.log('invData', invData)
         });
-
+        
       }
       
       )}
@@ -301,4 +340,7 @@ export default {
 
 <style>
   .invTbl tr, tr{border:1px solid #666; border-collapse: collapse;}
+  .err {
+    color:red !important;
+  }
 </style>
