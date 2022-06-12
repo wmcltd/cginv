@@ -65,63 +65,10 @@ export default {
       overlay: false,
       errorMsg: '',
       supplier: '',
-      // supplierData: [
-      //   { 
-      //     supplierId: 'Primeline',
-      //     endpoint: 'https://api.primeline.com/soap/InventoryService.svc',
-      //     version: '1.2.1',
-      //     username: 'denar@corporategift.com',
-      //     pwd: 'P9HghK5S'
-      //   },
-      //   {
-      //     supplierId: 'Alphabroder',
-      //     endpoint: 'https://services.alphabroder.com/inventory/InventoryService.svc',
-      //     version: '1.2.1',
-      //     username: 'ps3369205',
-      //     pwd: 'vhSIpiY2'
-      //   },
-      //   {
-      //     supplierId: 'PCNA',
-      //     endpoint: 'https://psinventory121.pcna.online/psInventory.svc',
-      //     version: '1.2.1',
-      //     username: 'CORPORATEGIFT',
-      //     pwd: 'U+%b[tk8(f@ilT;z7P[|5vqD?[6TjQ*@ugLulgpW{$N*8mhI9bgqlSF@GDr7|Ma'
-      //   },
-      //   {
-      //     supplierId: 'Gemline',
-      //     endpoint: 'https://wsp.gemline.com/GemlineWebService/Inventory/v1/GemlineInventoryService.svc',
-      //     version: '1.2.1',
-      //     username: '1017565',
-      //     pwd: '01fdc894-9cd4-42d5-a5ab-2388bc614252'
-      //   },
-      //   {
-      //     supplierId: 'Spector',
-      //     endpoint: 'https://www.spectorapps.com/pws_product/Inventory/Inventory.php',
-      //     version: '1.2.1',
-      //     username: '169228',
-      //     pwd: '4WKEHRPv'
-      //   },
-      //   {
-      //     supplierId: 'Koozie Group',
-      //     endpoint: 'https://services.kooziegroup.com/soa-infra/services/external/promostandards/inventory_v2.0.0',
-      //     version: '2.0.0',
-      //     username: 'SYSCORPUJT',
-      //     pwd: 'mmklsouV2r'
-      //   },
-      //   {
-      //     supplierId: 'HIT Promotional Products',
-      //     endpoint: 'https://ppds.hitpromo.net/inventoryV2RC4?ws=1',
-      //     version: '2.0.0',
-      //     username: '192363',
-      //     pwd: '50bae7cd5bb86dab12a9a75502202244'
-      //   },
-      // ],
       rawData: '',
       productID: '',
-      //vendorEndpoint: 'https://api.primeline.com',
       invResponse: '',
       partDesc: '',
-      //data: '<?xml version="1.0" encoding="utf-8"?>\n<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" >\n    \n    <soap:Body>\n   <Request xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.promostandards.org/WSDL/InventoryService/1.0.0/">\n  <wsVersion>1.2.1</wsVersion>\n  <id>denar@corporategift.com</id>\n  <password>P9HghK5S</password>\n  <productID>BG100</productID>\n  <productIDtype>Supplier</productIDtype>\n</Request>\n    </soap:Body>\n</soap:Envelope>',
       sku: '',
       headers:[
         {
@@ -206,21 +153,7 @@ export default {
           </soapenv:Body>
           </soapenv:Envelope>`;
       }
-//    qry = `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.promostandards.org/WSDL/InventoryService/`+wsdlVer+`/" xmlns:shar="http://www.promostandards.org/WSDL/InventoryService/`+wsdlVer+`/SharedObjects/">
-//     <soapenv:Header/>
-//     <soapenv:Body>
 
-// <GetInventoryLevelsRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.promostandards.org/WSDL/Inventory/`+wsdlVer+`/">
-//   <wsVersion xmlns="http://www.promostandards.org/WSDL/Inventory/`+wsdlVer+`/SharedObjects/">`+supplierData.version +`</wsVersion>
-//   <id xmlns="http://www.promostandards.org/WSDL/Inventory/`+wsdlVer+`/SharedObjects/">` +supplierData.username + `</id>
-//   <password xmlns="http://www.promostandards.org/WSDL/Inventory/`+wsdlVer+`/SharedObjects/">` + supplierData.pwd + `</password>
-//   <productId xmlns="http://www.promostandards.org/WSDL/Inventory/`+wsdlVer+`/SharedObjects/">` +this.productID.toUpperCase() + `</productId>
- 
-// </GetInventoryLevelsRequest>
-
-// </soapenv:Body>
-// </soapenv:Envelope>`;
-      //console.log(qry, query)
       var config = {
         method: 'post',
        // url: '/default/promostandardsProxy?url='+supplierData.endpoint,
@@ -236,10 +169,7 @@ export default {
       this.overlay=true
       axios(config).then(response => {
         console.log('RESPONSE:', JSON.stringify(response.data))
-        // this.invResponse = JSON.stringify(response.data)
         var xml = response.data
-               
-
        // xml = xml.toString().replace("\ufeff", "");
         // convert XML to JSON
         var options = {explicitArray: false, tagNameProcessors: [xml2js.processors.stripPrefix] };
@@ -266,8 +196,9 @@ export default {
                 this.errorMsg = ''
               }
             }
+
             // Get the soap body object
-            console.log('altbody', result.Envelope.Body)
+            //console.log('altbody', result.Envelope.Body)
             var soapBody = ''
             var itemArray = []
             var color = ''
@@ -280,7 +211,12 @@ export default {
               
               itemArray.forEach(element => {
                 if('partColor' in element){color = element.partColor}
-                if('labelSize' in itemArray){size = element.labelSize}
+                if('labelSize' in element){
+                  //console.log('LABEL SIZE FOUND')
+                  size = element.labelSize
+                }else{
+                  //console.log('LABEL SIZE NOT FOUND')
+                }
                 if(element.quantityAvailable.Quantity.value){
                   quantityAvailable = element.quantityAvailable.Quantity.value
                 }else if('quantityAvailable' in itemArray){
