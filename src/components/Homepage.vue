@@ -19,7 +19,7 @@
         ></v-select>
       </v-col>
       <v-col cols=6>  
-    <v-text-field label="Enter Item Id" v-model=productID clearable />
+    <v-text-field label="Enter Item Id" v-model=productID clearable @click="clearItems()" />
     <v-btn small color='primary' :disabled="disabled" @click="getInv()">Search Inventory</v-btn>
      <v-col cols=6 v-if = "errorMsg.length>0"><span class="err" >{{errorMsg}}</span></v-col>
       </v-col>
@@ -28,7 +28,7 @@
     <!-- <v-btn @click="getData('D100')">data</v-btn> -->
     
     <v-row>
-      <span style="color:blue; font-weight:300;">{{productID}} |</span><span style="margin-left:7px;font-weight:300;">{{partDesc}}</span>
+      <span style="color:blue; font-weight:300;">{{foundProductID}} |</span><span style="margin-left:7px;font-weight:300;">{{partDesc}}</span>
     </v-row>
     <v-row>
       <v-col>
@@ -47,8 +47,10 @@
     </v-row>
     <v-row>
       <v-col cols=10>
-      <p style="font-size:1rem; color:#DEDEDE;">RawData:</p>
-      <p style="font-size:.8rem; color:#DEDEDE;">{{rawData}}</p>
+      <p style="font-size:1rem; color:#6D6D6D;">RawData  | {{version}}</p>
+      <div style="font-size:.8rem; color:#6D6D6D;">
+          <vue-json-pretty :path="'res'" :data="rawData" :deepCollapseChildren=true> </vue-json-pretty>
+        </div>
       </v-col>
     </v-row>
   </v-container>
@@ -58,15 +60,23 @@
 import axios from 'axios';
 import xml2js from 'xml2js';
 import suppliers from '../assets/suppliers.json';
+import VueJsonPretty from "vue-json-pretty";
+import "vue-json-pretty/lib/styles.css";
+
 export default {
+   components: {
+    VueJsonPretty,
+  },
   data() {
     return {
       supplierData: suppliers.data,
       overlay: false,
       errorMsg: '',
       supplier: '',
+      version: '',
       rawData: '',
       productID: '',
+      foundProductID: '',
       invResponse: '',
       partDesc: '',
       sku: '',
@@ -109,6 +119,10 @@ export default {
     //   itemId='D100'
     //   this.$store.dispatch('setItemData',itemId)
     // },
+    clearItems(){
+      this.items=[]
+    },
+
     getInv() {
       this.items = []
       const supplierDataObj = this.supplierData.filter(e=>{
@@ -117,11 +131,7 @@ export default {
       console.log('target Supplier', this.supplier)
       console.log('supplierFound', supplierData)
       const supplierData = supplierDataObj[0]
-     // console.log(supplierData0, supplierData)
-    //  var wsdlVer = '1.2.1'
-    //  if(supplierData.version == '2.0.0'){
-    //    wsdlVer = '2.0.0';
-    //  }
+      this.version = supplierData.version
    
       var qry = '';
       if(supplierData.version == '1.2.1'){
@@ -170,16 +180,12 @@ export default {
       axios(config).then(response => {
         console.log('RESPONSE:', JSON.stringify(response.data))
         var xml = response.data
-       // xml = xml.toString().replace("\ufeff", "");
         // convert XML to JSON
         var options = {explicitArray: false, tagNameProcessors: [xml2js.processors.stripPrefix] };
         xml2js.parseString(xml, options,(err, result) => {
             if(err) {
                 throw err;
             }
-            // if(result.Envelope.Body.GetInventoryLevelsResponse.ServiceMessageArray.ServiceMessage != undefined){
-                
-            // }
             try{
                 this.errorMsg = result.Envelope.Body.GetInventoryLevelsResponse.ServiceMessageArray.ServiceMessage.description
                 this.overlay=false
@@ -198,7 +204,7 @@ export default {
             }
 
             // Get the soap body object
-            //console.log('altbody', result.Envelope.Body)
+            this.foundProductID = this.productID.toUpperCase()
             var soapBody = ''
             var itemArray = []
             var color = ''
@@ -214,8 +220,6 @@ export default {
                 if('labelSize' in element){
                   //console.log('LABEL SIZE FOUND')
                   size = element.labelSize
-                }else{
-                  //console.log('LABEL SIZE NOT FOUND')
                 }
                 if(element.quantityAvailable.Quantity.value){
                   quantityAvailable = element.quantityAvailable.Quantity.value
@@ -231,18 +235,10 @@ export default {
               soapBody=result.Envelope.Body.Reply;
               itemArray = soapBody.ProductVariationInventoryArray.ProductVariationInventory
               this.rawData = itemArray
-            
-            
             console.log('BODY:', soapBody)
             console.log('itemArray', itemArray)
-            //var productID = soapBody.productID;
            
-            // var itemArray = soapBody.ProductVariationInventoryArray.ProductVariationInventory
-            // console.log('itemArray', typeof itemArray, itemArray)
-            // //this.invResponse = itemArray
-            // console.log('length of itemArray', itemArray.length)
             /** parse itemArray into items object **/
-           
               if(itemArray.length>0){
                 itemArray.forEach(element => {
                   if(element.attributeColor){color = element.attributeColor}
@@ -259,11 +255,6 @@ export default {
             //this.items = itemArray
             console.log('items', this.items)
             this.overlay=false
-            // log JSON string
-            //console.log(json);
-            //var invData = this.invResponse[0] //.Body[0]; //['ns1:ProductVariationInventoryArray'][0]['ns1:ProductVariationInventory']
-            
-           // console.log('invData', invData)
         });
         
       }
