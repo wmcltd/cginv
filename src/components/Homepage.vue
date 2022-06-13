@@ -82,6 +82,10 @@ export default {
       sku: '',
       headers:[
         {
+          text: 'Product ID',
+          value: 'productId'
+        },
+        {
             text: 'Part ID',
             align: 'start',
             sortable: true,
@@ -229,7 +233,7 @@ export default {
                   quantityAvailable = 'N/A'
                 }
                 this.partDesc = element.partDescription
-                this.items.push({'partID': element.partId, 'attributeColor': color, 'attributeSize': size, 'quantityAvailable': quantityAvailable})
+                this.items.push({'productId': this.foundProductID, 'partID': element.partId, 'attributeColor': color, 'attributeSize': size, 'quantityAvailable': quantityAvailable})
               });
             }else{ //inventory version 1.2.1
               soapBody=result.Envelope.Body.Reply;
@@ -244,12 +248,12 @@ export default {
                   if(element.attributeColor){color = element.attributeColor}
                   if(element.attributeSize){size = element.attributeSize}
                   this.partDesc = element.partDescription
-                  this.items.push({'partID': element.partID, 'attributeColor': color, 'attributeSize': size, 'quantityAvailable': element.quantityAvailable})
+                  this.items.push({'productId' : this.foundProductID, 'partID': element.partID, 'attributeColor': color, 'attributeSize': size, 'quantityAvailable': element.quantityAvailable})
                 });
               }else{
                 if(itemArray.attributeColor){color = itemArray.attributeColor}
                 this.partDesc = itemArray.partDescription
-                this.items.push({'partID': itemArray.partID, 'attributeColor': color, 'quantityAvailable': itemArray.quantityAvailable})
+                this.items.push({'productId' : this.foundProductID, 'partID': itemArray.partID, 'attributeColor': color, 'quantityAvailable': itemArray.quantityAvailable})
               }
             }
             //this.items = itemArray
