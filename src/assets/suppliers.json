@@ -48,6 +48,97 @@
       "version": "2.0.0",
       "username": "192363",
       "pwd": "50bae7cd5bb86dab12a9a75502202244"
+    },
+{
+      "supplierId": "aaa innovations",
+      "endpoint": "https://aaa.suitextend.net/v1/promo-supplier/promoinventory/v200/inventoryservice",
+      "version": "2.0.0",
+      "username": "C14850CorporateGift",
+      "pwd": "asxKVV92jXZNPV97"
+    },
+{
+      "supplierId": "SanMar",
+      "endpoint": "https://ws.sanmar.com:8080/promostandards/InventoryServiceBindingV2final?WSDL",
+      "version": "2.0.0",
+      "username": "CorporateGift",
+      "pwd": "12341234"
+    },
+{
+      "supplierId": "Sweda",
+      "endpoint": "https://ordertrax.essent.com/sites/sweda/inventoryV2/InventoryV2.svc",
+      "version": "2.0.0",
+      "username": "CORPORATEGIFTCOM",
+      "pwd": "RmapqvMm"
+    },
+{
+      "supplierId": "Hirsch Gift",
+      "endpoint": "https://webservice.hg-promo.com/PromoStandards/InventoryService/?wsdl",
+      "version": "1.2.1",
+      "username": "169228",
+      "pwd": "e357c928-ee57-46aa-a430-19a0146b571f"
+    },
+{
+      "supplierId": "Cutter & Buck",
+      "endpoint": "https://api.cbcorporate.com/promostandards/InventoryService200.asmx",
+      "version": "2.0.0",
+      "username": "CorporateGift",
+      "pwd": "MXGj-1xRA-dxBg-SLx1-Gm1F-b2hS"
+    },
+{
+      "supplierId": "Fossa Apparel, Inc.",
+      "endpoint": "https://ws.fossaapparel.com/InventoryServices.svc",
+      "version": "2.0.0",
+      "username": "corporategift.com",
+      "pwd": "91d1ee83-cb0f-11ec-b0b4-0620c1513312"
+    },
+{
+      "supplierId": "ETS Express",
+      "endpoint": "https://pstnd.etsexpress.com/InventoryServiceV2/CustomerInventoryService.svc",
+      "version": "2.0.0",
+      "username": "169228",
+      "pwd": "d0dcd987-915d-4c5a-a245-0ccd8f416650"
+    },
+{
+      "supplierId": "Snugz",
+      "endpoint": "https://api.snugzusa.com:7443/snugzwcf_inventoryv2/inventoryservice.svc",
+      "version": "2.0.0",
+      "username": "CorpGicom09",
+      "pwd": "qy0G+uz9"
+    },
+{
+      "supplierId": "Origaudio",
+      "endpoint": "https://promostandards.hubpen.biz/inventory/handstands",
+      "version": "1.2.1",
+      "username": "C73060",
+      "pwd": "yM75huEQNZR7F4He"
+    },
+{
+      "supplierId": "Jornik MFG Corp",
+      "endpoint": "https://inventory.jornikproofs.com/InventoryService.svc",
+      "version": "2.0.0",
+      "username": "TEST2",
+      "pwd": "TestASI@123"
+    },
+{
+      "supplierId": "Logomark",
+      "endpoint": "https://psapi.logomark.com/LogomarkInventoryService.svc",
+      "version": "1.2.1",
+      "username": "CorporateGift.com",
+      "pwd": "a414ce90-1298-43b0-bdb7-671e9ba307c1"
+    },
+{
+      "supplierId": "aaa innovations",
+      "endpoint": "https://aaa.suitextend.net/v1/promo-supplier/promoinventory/v200/inventoryservice",
+      "version": "2.0.0",
+      "username": "C14850CorporateGift",
+      "pwd": "asxKVV92jXZNPV97"
+    },
+{
+      "supplierId": "Moderne Glass",
+      "endpoint": "https://service.glassamerica.com/Inventory/v200/Inventory.php",
+      "version": "2.0.0",
+      "username": "denar",
+      "pwd": "jaI8345!tW3+a95"
     }
   ]
 }
