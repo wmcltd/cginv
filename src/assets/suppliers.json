@@ -49,13 +49,7 @@
       "username": "192363",
       "pwd": "50bae7cd5bb86dab12a9a75502202244"
     },
-{
-      "supplierId": "aaa innovations",
-      "endpoint": "https://aaa.suitextend.net/v1/promo-supplier/promoinventory/v200/inventoryservice",
-      "version": "2.0.0",
-      "username": "C14850CorporateGift",
-      "pwd": "asxKVV92jXZNPV97"
-    },
+
 {
       "supplierId": "SanMar",
       "endpoint": "https://ws.sanmar.com:8080/promostandards/InventoryServiceBindingV2final?WSDL",
