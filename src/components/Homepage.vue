@@ -109,6 +109,12 @@ export default {
       items: []
     };
   },
+  created(){
+    
+
+      this.supplierData = this.supplierData.sort((a, b) => (a.supplierId > b.supplierId) ? 1 : -1)
+    
+  },
   computed:{
     disabled(){
       if(this.supplier && this.productID){

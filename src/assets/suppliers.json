@@ -127,7 +127,7 @@
       "pwd": "a414ce90-1298-43b0-bdb7-671e9ba307c1"
     },
 {
-      "supplierId": "aaa innovations",
+      "supplierId": "AAA Innovations",
       "endpoint": "https://aaa.suitextend.net/v1/promo-supplier/promoinventory/v200/inventoryservice",
       "version": "2.0.0",
       "username": "C14850CorporateGift",
@@ -139,6 +139,28 @@
       "version": "2.0.0",
       "username": "denar",
       "pwd": "jaI8345!tW3+a95"
+    },
+    {
+      "supplierId": "Imagen",
+      "endpoint": "https://webapi.imagenbrands.com/ws/inventory/",
+      "version": "1.2.1",
+      "username": "139585",
+      "pwd": "07624"
+    },
+    {
+       "supplierId": "Gordon Sinclair",
+      "endpoint": "https://gordonsinclair.suitextend.net/v1/promo-supplier/promoinventory/v121/inventoryservice",
+      "version": "1.2.1",
+      "username": "CorporateGift",
+      "pwd": "Fa24R9TiS1A3@En927#"
+    },
+    {
+       "supplierId": "Maple Ridge",
+      "endpoint": "https://api.dc-onesource.com/xml/MAPLERIDGEFARMSINC/INV/1.2.1/soap",
+      "version": "1.2.1",
+      "username": "CED75D76-130C-4DA8-BBEA-E59C3F3F1ADC",
+      "pwd": "RFA6HG2-D0XMV8C-MWFBRT2-E383EE6"
     }
+    
   ]
 }
