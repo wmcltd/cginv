@@ -154,6 +154,20 @@
       "version": "1.2.1",
       "username": "CED75D76-130C-4DA8-BBEA-E59C3F3F1ADC",
       "pwd": "RFA6HG2-D0XMV8C-MWFBRT2-E383EE6"
+    },
+    {
+       "supplierId": "Gold Bond",
+      "endpoint": "https://ordertrax.essent.com/sites/goldbond/inventory/inventory.svc",
+      "version": "1.2.1",
+      "username": "CorporateGifts",
+      "pwd": "b6ad9e3c-1f30-4595-8b5a-ed158f7291db"
+    },
+    {
+       "supplierId": "Terry Town",
+      "endpoint": "http://terrytown.promostandardsservices.com/api2/InventoryService/CustomerInventoryService.svc",
+      "version": "1.2.1",
+      "username": "denar@corporategift.com",
+      "pwd": "ejbj2351EJ"
     }
     
   ]

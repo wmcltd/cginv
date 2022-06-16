@@ -47,8 +47,8 @@
     </v-row>
     <v-row>
       <v-col cols=10>
-      <p style="font-size:1rem; color:#6D6D6D;">RawData  | {{version}}</p>
-      <div style="font-size:.8rem; color:#6D6D6D;">
+      <p style="font-size:1rem; color:#6D6D6D;">RawData  | {{version}}<v-btn x-small @click="showRaw = !showRaw" class="ml-3" color="warning">Show/Hide</v-btn></p>
+      <div v-if="showRaw" style="font-size:.8rem; color:#6D6D6D;">
           <vue-json-pretty :path="'res'" :data="rawData" :deepCollapseChildren=true> </vue-json-pretty>
         </div>
       </v-col>
@@ -70,6 +70,7 @@ export default {
   data() {
     return {
       supplierData: suppliers.data,
+      showRaw: false,
       overlay: false,
       errorMsg: '',
       supplier: '',
@@ -177,12 +178,14 @@ export default {
       var config = {
         method: 'post',
        // url: '/default/promostandardsProxy?url='+supplierData.endpoint,
-        url: 'https://2glymihrdd.execute-api.us-east-1.amazonaws.com/default/promostandardsProxy?url='+supplierData.endpoint,
+        url: 'https://2glymihrdd.execute-api.us-east-1.amazonaws.com/default/promostandardsProxy?url='+supplierData.endpoint + '&soapAction=' + 'getInventoryLevels',
         //url: 'https://2glymihrdd.execute-api.us-east-1.amazonaws.com/default/promostandardsProxy?url='+supplierData.endpoint,
         headers: { 
           'Content-Type': 'text/xml',
+         
         },
-        data : qry
+        data : qry,
+        soapAction: 'getInventoryLevels'
       };
       
       console.log('config:',config)
@@ -224,23 +227,31 @@ export default {
               soapBody = result.Envelope.Body
               itemArray = soapBody.GetInventoryLevelsResponse.Inventory.PartInventoryArray.PartInventory
               this.rawData = itemArray
-              
-              itemArray.forEach(element => {
-                if('partColor' in element){color = element.partColor}
-                if('labelSize' in element){
-                  //console.log('LABEL SIZE FOUND')
-                  size = element.labelSize
-                }
-                if(element.quantityAvailable.Quantity.value){
-                  quantityAvailable = element.quantityAvailable.Quantity.value
-                }else if('quantityAvailable' in itemArray){
-                    quantityAvailable = element.quantityAvailable.Quantity.value
+              var singleItem = false;
+              if(typeof itemArray=='object'){
+                singleItem = true
+              }
+                if(!singleItem){
+                  itemArray.forEach(element => {
+                    if('partColor' in element){color = element.partColor}
+                    if('labelSize' in element){
+                      //console.log('LABEL SIZE FOUND')
+                      size = element.labelSize
+                    }
+                    if(element.quantityAvailable.Quantity.value){
+                      quantityAvailable = element.quantityAvailable.Quantity.value
+                    }else if('quantityAvailable' in itemArray){
+                        quantityAvailable = element.quantityAvailable.Quantity.value
+                    }else{
+                      quantityAvailable = 'N/A'
+                    }
+                    this.partDesc = element.partDescription
+                    this.items.push({'productId': this.foundProductID, 'partID': element.partId, 'attributeColor': color, 'attributeSize': size, 'quantityAvailable': quantityAvailable})
+                  });
                 }else{
-                  quantityAvailable = 'N/A'
+                  //parse single item from version 2.0.0
+                  this.items.push({'productId': this.foundProductID, 'partID': itemArray.partId, 'attributeColor': itemArray.partColor, 'attributeSize': itemArray.labelSize, 'quantityAvailable': itemArray.quantityAvailable.Quantity.value})
                 }
-                this.partDesc = element.partDescription
-                this.items.push({'productId': this.foundProductID, 'partID': element.partId, 'attributeColor': color, 'attributeSize': size, 'quantityAvailable': quantityAvailable})
-              });
             }else{ //inventory version 1.2.1
               soapBody=result.Envelope.Body.Reply;
               itemArray = soapBody.ProductVariationInventoryArray.ProductVariationInventory
