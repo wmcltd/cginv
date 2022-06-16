@@ -168,6 +168,13 @@
       "version": "1.2.1",
       "username": "denar@corporategift.com",
       "pwd": "ejbj2351EJ"
+    },
+    {
+       "supplierId": "Charles River",
+      "endpoint": "https://ordertrax.essent.com/sites/charlesriverapparel/inventory/inventory.svc",
+      "version": "1.2.1",
+      "username": "ps000527@charlesriverapparel.com",
+      "pwd": "Ilkj@iky35!"
     }
     
   ]
