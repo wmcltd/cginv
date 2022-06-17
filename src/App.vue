@@ -29,7 +29,12 @@
         target="_blank"
         text
       >
-        <span class="mr-2">Quick Supplier Inventory Lookup<br /><span style="font-size:.6rem;font-weight:400;">version 0.1</span></span>
+        <span class="mr-2"
+          >Quick Supplier Inventory Lookup<br /><span
+            style="font-size: 0.6rem; font-weight: 400"
+            >version 0.1</span
+          ></span
+        >
         <!-- <v-icon>mdi-open-in-new</v-icon> -->
       </v-btn>
     </v-app-bar>
