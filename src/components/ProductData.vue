@@ -1,5 +1,8 @@
 <template >
-  <v-container v-show=false>
+  <v-container >
+    <a href="#" @click="show==!show">Product Data Beta</a>
+    <v-card v-if="show">
+      <v-card-text>
      <!-- <v-btn @click="getSuppliers()">Get ALL Suppliers</v-btn> -->
    <v-select
       placeholder="Select Service"
@@ -62,7 +65,8 @@
           >
           </vue-json-pretty>
         </div>
-
+      </v-card-text>
+    </v-card>
   </v-container>
 </template>
 
