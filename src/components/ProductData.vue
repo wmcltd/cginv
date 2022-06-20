@@ -1,7 +1,11 @@
 <template >
-  <v-container v-show=false>
+  <v-container >
+    <v-btn @click="show =!show" x-small color="secondary">Product Data Beta</v-btn>
+    <v-card v-if="show" class="mt-5">
+      <v-card-text>
      <!-- <v-btn @click="getSuppliers()">Get ALL Suppliers</v-btn> -->
    <v-select
+      label="PS Service"
       placeholder="Select Service"
       :items="services"
       item-text="Name"
@@ -9,6 +13,7 @@
       v-model="service"
     />   
     <v-select
+      label="Supplier"
       placeholder="Select Supplier"
       :items="suppliers"
       item-text="Name"
@@ -20,7 +25,7 @@
 
     
     <!-- <v-text-field placeholder="Enter Item" v-model="itemId" /> -->
-     <v-text-field placeholder="Enter Item" v-model="productID" disabled=true />
+     <v-text-field label="Item Id" placeholder="Set Above" v-model="productID" />
     <v-btn @click="setPSData()">Get PromoStandards Data</v-btn>
     <v-data-table
       :headers="productDataHeaders"
@@ -62,7 +67,8 @@
           >
           </vue-json-pretty>
         </div>
-
+      </v-card-text>
+    </v-card>
   </v-container>
 </template>
 
@@ -77,6 +83,7 @@ export default {
   },  
   data() {
     return {
+      show:false,
       showRaw: false,
       expanded: true,
       supplierId: "alphabroder",
