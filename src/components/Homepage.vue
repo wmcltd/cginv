@@ -15,6 +15,7 @@
           item-text="supplierId"
           item-value="supplierId"
           label="Select Supplier"
+          @change="setSupplier()"
           v-model="supplier"
         ></v-select>
       </v-col>
@@ -22,6 +23,7 @@
         <v-text-field
           label="Enter Item Id"
           v-model="productID"
+          @change="setProductId()"
           clearable
           @click="clearItems()"
         />
@@ -141,6 +143,7 @@ export default {
     );
   },
   computed: {
+    
     disabled() {
       if (this.supplier && this.productID) {
         return false;
@@ -156,6 +159,14 @@ export default {
     // },
     clearItems() {
       this.items = [];
+      this.rawData= [];
+    },
+
+    setProductId(){
+      this.$store.dispatch('setProductId', this.productID)
+    },
+    setSupplier(){
+      this.$store.dispatch('setSupplier', this.supplier)
     },
 
     getInv() {
@@ -275,13 +286,18 @@ export default {
           if (supplierData.version == "2.0.0") {
             //inventory version 2.0.0
             soapBody = result.Envelope.Body;
+            console.log('soapBody', soapBody)
             itemArray =
               soapBody.GetInventoryLevelsResponse.Inventory.PartInventoryArray
                 .PartInventory;
             this.rawData = itemArray;
             var singleItem = false;
-            if (typeof itemArray == "object") {
-              singleItem = true;
+            console.log('response length: ', itemArray.length)
+            // if (typeof itemArray == "object") {
+            //   singleItem = true;
+            // }
+            if(itemArray.length==1){
+              singleItem = true
             }
             if (!singleItem) {
               itemArray.forEach((element) => {

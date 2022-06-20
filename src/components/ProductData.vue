@@ -1,23 +1,26 @@
 <template>
   <v-container>
-    <v-btn @click="getSuppliers()">Get ALL Suppliers</v-btn>
+     <!-- <v-btn @click="getSuppliers()">Get ALL Suppliers</v-btn> -->
+   <v-select
+      placeholder="Select Service"
+      :items="services"
+      item-text="Name"
+      item-value="Name"
+      v-model="service"
+    />   
     <v-select
       placeholder="Select Supplier"
       :items="suppliers"
       item-text="Name"
       item-value="Name"
       v-model="supplier"
+      
     />
-    <v-select
-      placeholder="Select Service"
-      :items="services"
-      item-text="Name"
-      item-value="Name"
-      v-model="service"
-    />
+   
 
     
-    <v-text-field placeholder="Enter Item" v-model="itemId" />
+    <!-- <v-text-field placeholder="Enter Item" v-model="itemId" /> -->
+     <v-text-field placeholder="Enter Item" v-model="productID" disabled=true />
     <v-btn @click="setPSData()">Get PromoStandards Data</v-btn>
     <v-data-table
       :headers="productDataHeaders"
@@ -77,7 +80,8 @@ export default {
       showRaw: false,
       expanded: true,
       supplierId: "alphabroder",
-      suppliers: [],
+      //suppliers: [],
+     // itemId: '',
       supplier: "",
       supplierEndpoints: supplierEndpoints,
       services: [
@@ -86,7 +90,7 @@ export default {
         // { Name: "Pricing & Congiguration", Code: "PPC" },
       ],
       service: "",
-      itemId: "",
+      //itemId: "",
       rawProductData: '',
       productDataHeaders: [
         {
@@ -131,11 +135,24 @@ export default {
       ],
     };
   },
-  mounted() {
-    this.getSuppliers();
+  created() {
+    this.$store.dispatch("setSuppliers")
+  },
+  computed:{
+    // supplier(){
+    //   return this.$store.getters.getSupplier
+    // },
+    productID(){
+      return this.$store.getters.getProductId
+    },
+    suppliers(){
+      return this.$store.getters.getSuppliers
+     
+    }
   },
   methods: {
     getSuppliers() {
+      alert('geting them')
       this.$store.dispatch("setSuppliers").then((response) => {
         console.log(response);
         this.suppliers = this.$store.getters.getSuppliers;
@@ -144,7 +161,7 @@ export default {
     setPSData() {
       var data = {}
       data.ver = '1.0.0'
-      data.itemId = this.itemId
+      data.itemId = this.productID
       data.serviceName = this.service
       data.supplierId = this.supplier
       data.supplierEndpoints = this.supplierEndpoints

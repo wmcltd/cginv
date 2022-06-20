@@ -8,12 +8,17 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     suppliers: [],
+    supplier: '',
     productData: [],
     rawProductData: [],
+    productId: '',
   },
   mutations: {
     SET_SUPPLIERS(state, data) {
       state.suppliers = data;
+    },
+    SET_SUPPLIER(state, data) {
+      state.supplier = data;
     },
     SET_PRODUCT_DATA(state, data) {
       state.productData.push(data);
@@ -23,6 +28,9 @@ export default new Vuex.Store({
     },
     SET_RAW_PRODUCT_DATA(state, data){
       state.rawProductData.push(data)
+    },
+    SET_PRODUCT_ID(state, data){
+      state.productId = data
     }
   },
   actions: {
@@ -180,6 +188,12 @@ export default new Vuex.Store({
       });
     
     },
+    setProductId({commit}, id){
+      commit('SET_PRODUCT_ID', id)
+    },
+    setSupplier({commit}, id){
+      commit('SET_SUPPLIER', id)
+    },
     // getEndpoints(data){
     //   console.log('start getEndpoints', data)
     //   // axios.get('https://api.dc-onesource.com/ps/companies/'+data.supplierId+'/endpoints')
@@ -192,11 +206,17 @@ export default new Vuex.Store({
     getSuppliers(state) {
       return state.suppliers;
     },
+    getSupplier(state) {
+      return state.supplier;
+    },
     getProductData(state) {
       return state.productData;
     },
     getRawProductData(state){
       return state.rawProductData
+    },
+    getProductId(state){
+      return state.productId
     }
   },
 });
