@@ -5,15 +5,24 @@
         <v-progress-circular :size="100" indeterminate></v-progress-circular>
       </v-row>
       <v-row>
-        <v-btn @click="overlay = !overlay">Cancel</v-btn>
+        <v-btn @click="clearOverlay()">Cancel</v-btn>
       </v-row>
     </v-overlay>
     <v-row>
       <v-col>
-        <v-select
+        <!-- <v-select
           :items="supplierData"
           item-text="supplierId"
           item-value="supplierId"
+          label="Select Supplier"
+          @change="setSupplier()"
+          v-model="supplier"
+        ></v-select> -->
+      
+         <v-select
+          :items="allSuppliers"
+          item-text="Name"
+          item-value="Code"
           label="Select Supplier"
           @change="setSupplier()"
           v-model="supplier"
@@ -22,13 +31,15 @@
       <v-col cols="6">
         <v-text-field
           label="Enter Item Id"
-          v-model="productID"
+          v-model="productId"
           @change="setProductId()"
           clearable
           @click="clearItems()"
         />
         <v-btn small color="primary" :disabled="disabled" @click="getInv()"
-          >Search Inventory</v-btn
+          >Search Inventory</v-btn>
+         <v-btn class="ml-2" small color="primary"  @click="getInvAlt()"
+          >Search Inventory OneSource</v-btn
         >
         <v-col cols="6" v-if="errorMsg.length > 0"
           ><span class="err">{{ errorMsg }}</span></v-col
@@ -36,7 +47,7 @@
       </v-col>
     </v-row>
     <!-- <v-btn @click="getData('D100')">data</v-btn> -->
-
+    <!-- altInv: {{altInv}} -->
     <v-row>
       <span style="color: blue; font-weight: 300">{{ foundProductID }} |</span
       ><span style="margin-left: 7px; font-weight: 300">{{ partDesc }}</span>
@@ -50,7 +61,7 @@
       <v-col cols="12">
         <v-data-table
           :headers="headers"
-          :items="items"
+          :items="altInv"
           class="elevation-1"
           hide-default-footer
           disable-pagination
@@ -87,6 +98,7 @@
 import axios from "axios";
 import xml2js from "xml2js";
 import suppliers from "../assets/suppliers.json";
+import supplierEndpoints from "../assets/supplierEndpoints.json"
 import VueJsonPretty from "vue-json-pretty";
 import "vue-json-pretty/lib/styles.css";
 
@@ -97,8 +109,9 @@ export default {
   data() {
     return {
       supplierData: suppliers.data,
+      supplierEndpoints: supplierEndpoints,
       showRaw: false,
-      overlay: false,
+      
       errorMsg: "",
       supplier: "",
       version: "",
@@ -117,7 +130,7 @@ export default {
           text: "Part ID",
           align: "start",
           sortable: true,
-          value: "partID",
+          value: "partId",
         },
         {
           text: "Color",
@@ -138,12 +151,19 @@ export default {
     };
   },
   created() {
-    this.supplierData = this.supplierData.sort((a, b) =>
-      a.supplierId > b.supplierId ? 1 : -1
-    );
+    // this.supplierData = this.supplierData.sort((a, b) =>
+    //   a.supplierId > b.supplierId ? 1 : -1
+    // );
+    this.$store.dispatch("setSuppliers")
+  
   },
   computed: {
-    
+    overlay(){
+      return this.$store.getters.getOverlay
+    },
+    allSuppliers(){
+      return this.$store.getters.getSuppliers
+    },
     disabled() {
       if (this.supplier && this.productID) {
         return false;
@@ -151,6 +171,15 @@ export default {
         return true;
       }
     },
+    altInv(){
+      if(this.$store.getters.getInventory.length>0){
+        return this.$store.getters.getInventory
+      }else{
+        var altInv = []
+        return altInv
+      }
+      
+    }
   },
   methods: {
     // getData(itemId){
@@ -168,7 +197,18 @@ export default {
     setSupplier(){
       this.$store.dispatch('setSupplier', this.supplier)
     },
-
+    clearOverlay(){
+      this.$store.dispatch('setOverlay', false)
+    },
+    getInvAlt(){
+      var data = {}
+      data.supplierId=this.supplier
+      
+      data.productId=this.productId
+      data.supplierEndpoints = this.supplierEndpoints
+      data.service = 'Inventory'
+      this.$store.dispatch('setPSInventory', data)
+    },
     getInv() {
       this.items = [];
       const supplierDataObj = this.supplierData.filter((e) => {
