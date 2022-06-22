@@ -10,37 +10,37 @@
     </v-overlay>
     <v-row>
       <v-col>
-        <!-- <v-select
+        <v-select
           :items="supplierData"
           item-text="supplierId"
           item-value="supplierId"
           label="Select Supplier"
           @change="setSupplier()"
           v-model="supplier"
-        ></v-select> -->
+        ></v-select>
       
-         <v-select
+         <!-- <v-select
           :items="allSuppliers"
           item-text="Name"
           item-value="Code"
           label="Select Supplier"
           @change="setSupplier()"
           v-model="supplier"
-        ></v-select>
+        ></v-select> -->
       </v-col>
       <v-col cols="6">
         <v-text-field
           label="Enter Item Id"
-          v-model="productId"
+          v-model="productID"
           @change="setProductId()"
           clearable
           @click="clearItems()"
         />
-        <v-btn small color="primary" :disabled="disabled" @click="getInv()"
+        <v-btn small color="primary"  @click="getInv()"
           >Search Inventory</v-btn>
-         <v-btn class="ml-2" small color="primary"  @click="getInvAlt()"
+         <!-- <v-btn class="ml-2" small color="primary" disabled @click="getInvAlt()"
           >Search Inventory OneSource</v-btn
-        >
+        > -->
         <v-col cols="6" v-if="errorMsg.length > 0"
           ><span class="err">{{ errorMsg }}</span></v-col
         >
@@ -95,6 +95,7 @@
 </template>
 
 <script>
+
 import axios from "axios";
 import xml2js from "xml2js";
 import suppliers from "../assets/suppliers.json";
@@ -103,6 +104,7 @@ import VueJsonPretty from "vue-json-pretty";
 import "vue-json-pretty/lib/styles.css";
 
 export default {
+  
   components: {
     VueJsonPretty,
   },
