@@ -1,0 +1,116 @@
+[{
+  'supplierId': 'peachtree',
+  'impMethod': 'silkscreen',
+  'printCharges': [{
+      'itemMinQty': 36,
+      'itemMaxQty': 71,
+      'impColorQty': 1,
+      'cost': 1.20,
+    },
+    {
+      'itemMinQty': 36,
+      'itemMaxQty': 71,
+      'impColorQty': 2,
+      'cost': 1.40,
+    },
+    {
+      'itemMinQty': 36,
+      'itemMaxQty': 71,
+      'impColorQty': 3,
+      'cost': 1.80,
+    },
+    {
+      'itemMinQty': 36,
+      'itemMaxQty': 71,
+      'impColorQty': 4,
+      'cost': 2.30,
+    },
+    {
+      'itemMinQty': 36,
+      'itemMaxQty': 71,
+      'impColorQty': 5,
+      'cost': 3.00,
+    },
+    {
+      'itemMinQty': 36,
+      'itemMaxQty': 71,
+      'impColorQty': 6,
+      'cost': 3.80,
+    },
+    {
+      'itemMinQty': 36,
+      'itemMaxQty': 71,
+      'impColorQty': 7,
+      'cost': 4.75,
+    },
+//qty break
+    {
+      'itemMinQty': 72,
+      'itemMaxQty': 143,
+      'impColorQty': 1,
+      'cost': 1,
+    },
+    {
+      'itemMinQty': 72,
+      'itemMaxQty': 143,
+      'impColorQty': 2,
+      'cost': 1.25,
+    },
+    {
+      'itemMinQty': 72,
+      'itemMaxQty': 143,
+      'impColorQty': 3,
+      'cost': 1.5,
+    },
+    {
+      'itemMinQty': 72,
+      'itemMaxQty': 143,
+      'impColorQty': 4,
+      'cost': 1.75,
+    },
+    {
+      'itemMinQty': 72,
+      'itemMaxQty': 143,
+      'impColorQty': 5,
+      'cost': 2.15,
+    },
+    {
+      'itemMinQty': 72,
+      'itemMaxQty': 143,
+      'impColorQty': 6,
+      'cost': 2.5,
+    },
+    {
+      'itemMinQty': 72,
+      'itemMaxQty': 143,
+      'impColorQty': 7,
+      'cost': 2.85,
+    },
+  ],
+  'additionalChgs': [{
+      'chargeId': 'setup',
+      'charType': 'perColor',
+      'cost': 30
+    },
+    {
+      'chargeId': 'exactRerunSetup',
+      'charType': 'perColor',
+      'cost': 12
+    },
+    {
+      'chargeId': 'pmsMatch',
+      'charType': 'perColor',
+      'cost': 10
+    },
+    {
+      'chargeId': 'dropShip',
+      'charType': 'perShipment',
+      'cost': 4.75
+    },
+    {
+      'chargeId': 'darkColorFlash',
+      'charType': 'perColorAndLocation',
+      'cost': .25
+    },
+  ]
+}]

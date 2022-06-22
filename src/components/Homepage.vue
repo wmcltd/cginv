@@ -18,15 +18,7 @@
           @change="setSupplier()"
           v-model="supplier"
         ></v-select>
-      
-         <!-- <v-select
-          :items="allSuppliers"
-          item-text="Name"
-          item-value="Code"
-          label="Select Supplier"
-          @change="setSupplier()"
-          v-model="supplier"
-        ></v-select> -->
+    
       </v-col>
       <v-col cols="6">
         <v-text-field
@@ -61,7 +53,7 @@
       <v-col cols="12">
         <v-data-table
           :headers="headers"
-          :items="altInv"
+          :items="items"
           class="elevation-1"
           hide-default-footer
           disable-pagination
@@ -212,6 +204,7 @@ export default {
       this.$store.dispatch('setPSInventory', data)
     },
     getInv() {
+     this.$store.dispatch('setOverlay', true)
       this.items = [];
       const supplierDataObj = this.supplierData.filter((e) => {
         return e.supplierId.toUpperCase() == this.supplier.toUpperCase();
@@ -287,9 +280,10 @@ export default {
       };
 
       console.log("config:", config);
-      this.overlay = true;
+     // this.overlay = true;
       axios(config).then((response) => {
         console.log("RESPONSE:", JSON.stringify(response.data));
+       
         var xml = response.data;
         // convert XML to JSON
         var options = {
@@ -299,6 +293,17 @@ export default {
         xml2js.parseString(xml, options, (err, result) => {
           if (err) {
             throw err;
+          }
+          try{
+            if(result.Envelope.Body.Reply.productID.toUpperCase() !== this.productId.toUpperCase()){
+               var productNotFoundErr =  result.Envelope.Body.Reply.productID
+               console.log('product Error', productNotFoundErr)
+               this.errorMsg = 'Product Id '+productNotFoundErr
+               this.$store.dispatch('setOverlay', false)
+            }
+           
+          }catch(e){
+            console.log(e)
           }
           try {
             this.errorMsg =
@@ -328,20 +333,24 @@ export default {
           if (supplierData.version == "2.0.0") {
             //inventory version 2.0.0
             soapBody = result.Envelope.Body;
-            console.log('soapBody', soapBody)
+           // console.log('soapBody', soapBody)
+            //check for 2.0.0 error msg
+            console.log('*****', soapBody.Reply)
             itemArray =
               soapBody.GetInventoryLevelsResponse.Inventory.PartInventoryArray
                 .PartInventory;
             this.rawData = itemArray;
             var singleItem = false;
-            console.log('response length: ', itemArray.length)
+           
             // if (typeof itemArray == "object") {
             //   singleItem = true;
             // }
-            if(itemArray.length==1){
+            if(typeof itemArray == 'object' && itemArray.length == undefined){
               singleItem = true
             }
+             console.log('singleItem?', singleItem, 'response length: ', itemArray.length, 'ver', supplierData.version, 'type', typeof itemArray, 'itemArray', itemArray)
             if (!singleItem) {
+              
               itemArray.forEach((element) => {
                 if ("partColor" in element) {
                   color = element.partColor;
@@ -360,7 +369,7 @@ export default {
                 this.partDesc = element.partDescription;
                 this.items.push({
                   productId: this.foundProductID,
-                  partID: element.partId,
+                  partId: element.partId,
                   attributeColor: color,
                   attributeSize: size,
                   quantityAvailable: quantityAvailable,
@@ -369,10 +378,10 @@ export default {
             } else {
               //parse single item from version 2.0.0
               this.items.push({
-                productId: this.foundProductID,
-                partID: itemArray.partId,
+               productId: this.foundProductID,
+                partId: itemArray.partId,
                 attributeColor: itemArray.partColor,
-                attributeSize: itemArray.labelSize,
+               attributeSize: itemArray.labelSize,
                 quantityAvailable: itemArray.quantityAvailable.Quantity.value,
               });
             }
@@ -383,8 +392,8 @@ export default {
               soapBody.ProductVariationInventoryArray.ProductVariationInventory;
             this.rawData = itemArray;
             console.log("BODY:", soapBody);
-            console.log("itemArray", itemArray);
-
+           // console.log("itemArray", itemArray);
+            console.log('response length: ', itemArray.length, 'ver', supplierData.version, 'itemArray', itemArray)
             /** parse itemArray into items object **/
             if (itemArray.length > 0) {
               itemArray.forEach((element) => {
@@ -418,7 +427,8 @@ export default {
           }
           //this.items = itemArray
           console.log("items", this.items);
-          this.overlay = false;
+         // this.overlay = false;
+        this.$store.dispatch('setOverlay', false)
         });
       });
     },
