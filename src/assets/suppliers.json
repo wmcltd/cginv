@@ -168,6 +168,13 @@
       "version": "1.2.1",
       "username": "denar@corporategift.com",
       "pwd": "ejbj2351EJ"
+    },
+    {
+       "supplierId": "Ariel Premium",
+      "endpoint": "https://www2.arielpremium.com/WS/inventory/V2.0.0/api-server",
+      "version": "2.0.0",
+      "username": "denar@corporategift.com",
+      "pwd": "Corporate1@gift"
     }
     
   ]
