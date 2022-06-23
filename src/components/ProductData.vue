@@ -1,6 +1,7 @@
 <template >
   <v-container >
-    <v-btn @click="show =!show" x-small color="secondary">Product Data Beta</v-btn>
+    <h2 class="mb-5">Product Data Search</h2>
+    <!-- <v-btn @click="show =!show" x-small color="secondary">Product Data Beta</v-btn> -->
     <v-card v-if="show" class="mt-5">
       <v-card-text>
      <!-- <v-btn @click="getSuppliers()">Get ALL Suppliers</v-btn> -->
@@ -83,7 +84,7 @@ export default {
   },  
   data() {
     return {
-      show:false,
+      show:true,
       showRaw: false,
       expanded: true,
       supplierId: "alphabroder",

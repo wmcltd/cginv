@@ -1,116 +1,251 @@
-[{
-  'supplierId': 'peachtree',
-  'impMethod': 'silkscreen',
-  'printCharges': [{
-      'itemMinQty': 36,
-      'itemMaxQty': 71,
-      'impColorQty': 1,
-      'cost': 1.20,
+[
+  {
+  "supplierId" : "peachtree",
+  "impMethod": "silkscreen",
+  "printCharges": [
+    {
+      "itemMinQty": 36,
+      "itemMaxQty": 71,
+      "impColorQty": 1,
+      "cost": 1.20
     },
     {
-      'itemMinQty': 36,
-      'itemMaxQty': 71,
-      'impColorQty': 2,
-      'cost': 1.40,
+      "itemMinQty": 36,
+      "itemMaxQty": 71,
+      "impColorQty": 2,
+      "cost": 1.40
     },
     {
-      'itemMinQty': 36,
-      'itemMaxQty': 71,
-      'impColorQty': 3,
-      'cost': 1.80,
+      "itemMinQty": 36,
+      "itemMaxQty": 71,
+      "impColorQty": 3,
+      "cost": 1.80
     },
     {
-      'itemMinQty': 36,
-      'itemMaxQty': 71,
-      'impColorQty': 4,
-      'cost': 2.30,
+      "itemMinQty": 36,
+      "itemMaxQty": 71,
+      "impColorQty": 4,
+      "cost": 2.30
     },
     {
-      'itemMinQty': 36,
-      'itemMaxQty': 71,
-      'impColorQty': 5,
-      'cost': 3.00,
+      "itemMinQty": 36,
+      "itemMaxQty": 71,
+      "impColorQty": 5,
+      "cost": 3.00
     },
     {
-      'itemMinQty': 36,
-      'itemMaxQty': 71,
-      'impColorQty': 6,
-      'cost': 3.80,
+      "itemMinQty": 36,
+      "itemMaxQty": 71,
+      "impColorQty": 6,
+      "cost": 3.80
     },
     {
-      'itemMinQty': 36,
-      'itemMaxQty': 71,
-      'impColorQty': 7,
-      'cost': 4.75,
+      "itemMinQty": 36,
+      "itemMaxQty": 71,
+      "impColorQty": 7,
+      "cost": 4.75
     },
-//qty break
+
     {
-      'itemMinQty': 72,
-      'itemMaxQty': 143,
-      'impColorQty': 1,
-      'cost': 1,
-    },
-    {
-      'itemMinQty': 72,
-      'itemMaxQty': 143,
-      'impColorQty': 2,
-      'cost': 1.25,
+      "itemMinQty": 72,
+      "itemMaxQty": 143,  
+      "impColorQty": 1,
+      "cost": 1
     },
     {
-      'itemMinQty': 72,
-      'itemMaxQty': 143,
-      'impColorQty': 3,
-      'cost': 1.5,
+      "itemMinQty": 72,
+      "itemMaxQty": 143,
+      "impColorQty": 2,
+      "cost": 1.25
     },
     {
-      'itemMinQty': 72,
-      'itemMaxQty': 143,
-      'impColorQty': 4,
-      'cost': 1.75,
+      "itemMinQty": 72,
+      "itemMaxQty": 143,
+      "impColorQty": 3,
+      "cost": 1.5
     },
     {
-      'itemMinQty': 72,
-      'itemMaxQty': 143,
-      'impColorQty': 5,
-      'cost': 2.15,
+      "itemMinQty": 72,
+      "itemMaxQty": 143,
+      "impColorQty": 4,
+      "cost": 1.75
     },
     {
-      'itemMinQty': 72,
-      'itemMaxQty': 143,
-      'impColorQty': 6,
-      'cost': 2.5,
+      "itemMinQty": 72,
+      "itemMaxQty": 143,
+      "impColorQty": 5,
+      "cost": 2.15
     },
     {
-      'itemMinQty': 72,
-      'itemMaxQty': 143,
-      'impColorQty': 7,
-      'cost': 2.85,
-    },
-  ],
-  'additionalChgs': [{
-      'chargeId': 'setup',
-      'charType': 'perColor',
-      'cost': 30
+      "itemMinQty": 72,
+      "itemMaxQty": 143,
+      "impColorQty": 6,
+      "cost": 2.5
     },
     {
-      'chargeId': 'exactRerunSetup',
-      'charType': 'perColor',
-      'cost': 12
+      "itemMinQty": 72,
+      "itemMaxQty": 143,
+      "impColorQty": 7,
+      "cost": 2.85
+    },
+
+     {
+      "itemMinQty": 144,
+      "itemMaxQty": 215,  
+      "impColorQty": 1,
+      "cost": 0.90
     },
     {
-      'chargeId': 'pmsMatch',
-      'charType': 'perColor',
-      'cost': 10
+      "itemMinQty": 144,
+      "itemMaxQty": 215,
+      "impColorQty": 2,
+      "cost": 1.10
     },
     {
-      'chargeId': 'dropShip',
-      'charType': 'perShipment',
-      'cost': 4.75
+      "itemMinQty": 144,
+      "itemMaxQty": 215,
+      "impColorQty": 3,
+      "cost": 1.35
     },
     {
-      'chargeId': 'darkColorFlash',
-      'charType': 'perColorAndLocation',
-      'cost': .25
+      "itemMinQty": 144,
+      "itemMaxQty": 215,
+      "impColorQty": 4,
+      "cost": 1.70
     },
+    {
+      "itemMinQty": 144,
+      "itemMaxQty": 215,
+      "impColorQty": 5,
+      "cost": 2.05
+    },
+    {
+      "itemMinQty": 144,
+      "itemMaxQty": 215,
+      "impColorQty": 6,
+      "cost": 2.40
+    },
+    {
+      "itemMinQty": 144,
+      "itemMaxQty": 215,
+      "impColorQty": 7,
+      "cost": 2.75
+    },
+
+    {
+      "itemMinQty": 216,
+      "itemMaxQty": 287,  
+      "impColorQty": 1,
+      "cost": 0.80
+    },
+    {
+       "itemMinQty": 216,
+      "itemMaxQty": 287, 
+      "impColorQty": 2,
+      "cost": 1.00
+    },
+    {
+       "itemMinQty": 216,
+      "itemMaxQty": 287, 
+      "impColorQty": 3,
+      "cost": 1.20
+    },
+    {
+      "itemMinQty": 216,
+      "itemMaxQty": 287, 
+      "impColorQty": 4,
+      "cost": 1.55
+    },
+    {
+       "itemMinQty": 216,
+      "itemMaxQty": 287, 
+      "impColorQty": 5,
+      "cost": 1.90
+    },
+    {
+      "itemMinQty": 216,
+      "itemMaxQty": 287, 
+      "impColorQty": 6,
+      "cost": 2.25
+    },
+    {
+      "itemMinQty": 216,
+      "itemMaxQty": 287, 
+      "impColorQty": 7,
+      "cost": 2.60
+    },
+
+     {
+      "itemMinQty": 288,
+      "itemMaxQty": 431,  
+      "impColorQty": 1,
+      "cost": 0.75
+    },
+    {
+      "itemMinQty": 288,
+      "itemMaxQty": 431,  
+      "impColorQty": 2,
+      "cost": 0.90
+    },
+    {
+     "itemMinQty": 288,
+      "itemMaxQty": 431, 
+      "impColorQty": 3,
+      "cost": 1.05
+    },
+    {
+  "itemMinQty": 288,
+      "itemMaxQty": 431,  
+      "impColorQty": 4,
+      "cost": 1.30
+    },
+    {
+      "itemMinQty": 288,
+      "itemMaxQty": 431, 
+      "impColorQty": 5,
+      "cost": 1.60
+    },
+    {
+     "itemMinQty": 288,
+      "itemMaxQty": 431,  
+      "impColorQty": 6,
+      "cost": 1.95
+    },
+    {
+      "itemMinQty": 216,
+      "itemMaxQty": 287, 
+      "impColorQty": 7,
+      "cost": 2.35
+    }
+
+
+  ], 
+  "additionalChgs": [
+    {
+      "chargeId": "setup",
+      "charType": "perColor",
+      "cost": 30
+    },
+    {
+      "chargeId": "exactRerunSetup",
+      "charType": "perColor",
+      "cost": 12
+    },
+    {
+      "chargeId": "pmsMatch",
+      "charType": "perColor",
+      "cost": 10
+    },
+    {
+      "chargeId": "dropShip",
+      "charType": "perShipment",
+      "cost": 4.75
+    },
+    {
+      "chargeId": "darkColorFlash",
+      "charType": "perColorAndLocation",
+      "cost": 0.25
+    }
   ]
-}]
+}
+]

@@ -8,6 +8,9 @@
         <v-btn @click="clearOverlay()">Cancel</v-btn>
       </v-row>
     </v-overlay>
+    <h2 class="mb-5">Supplier Inventory Search</h2>
+    <v-card style="background:#F5F5F5;">
+      <v-card-text>
     <v-row>
       <v-col>
         <v-select
@@ -17,6 +20,7 @@
           label="Select Supplier"
           @change="setSupplier()"
           v-model="supplier"
+          outlined
         ></v-select>
     
       </v-col>
@@ -27,6 +31,7 @@
           @change="setProductId()"
           clearable
           @click="clearItems()"
+           outlined
         />
         <v-btn small color="primary"  @click="getInv()"
           >Search Inventory</v-btn>
@@ -40,13 +45,15 @@
     </v-row>
     <!-- <v-btn @click="getData('D100')">data</v-btn> -->
     <!-- altInv: {{altInv}} -->
-    <v-row>
-      <span style="color: blue; font-weight: 300">{{ foundProductID }} |</span
+    <v-row class="ml-3">
+      <v-col cols="6">
+      <span style="color: blue; font-size:1.1rem;font-weight: 300">{{ foundProductID }} |</span
       ><span style="margin-left: 7px; font-weight: 300">{{ partDesc }}</span>
+      </v-col>
     </v-row>
     <v-row>
       <v-col>
-        <span style="font-size: 0.8rem; font-weight: 200"
+        <span style="font-size: 0.8rem; font-weight: 300; color:#000;"
           >Click on column names to sort</span
         >
       </v-col>
@@ -83,6 +90,8 @@
         </div>
       </v-col>
     </v-row>
+    </v-card-text>
+    </v-card>
   </v-container>
 </template>
 
@@ -444,5 +453,8 @@ tr {
 }
 .err {
   color: red !important;
+}
+.input__slot, fieldset{
+  background:#fff !important;
 }
 </style>

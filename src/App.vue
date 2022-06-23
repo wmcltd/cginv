@@ -30,7 +30,7 @@
         text
       >
         <span class="mr-2"
-          >Quick Supplier Inventory Lookup<br /><span
+          >Quick Supplier Inventory and Deco Cost Lookup<br /><span
             style="font-size: 0.6rem; font-weight: 400"
             >version 0.1</span
           ></span
