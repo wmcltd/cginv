@@ -12,19 +12,21 @@
           :items="decoratorNames"
           item-text="decoratorName"
           v-model="vendor"
+          outlined
+          dense
         />
       </v-col>
       <v-col>
-         <v-text-field label="Deco Method" v-model="impMethod" />
+         <v-text-field label="Deco Method" v-model="impMethod" dense />
       </v-col>
        <v-col>
-         <v-text-field label="Item Qty" v-model="itemQty" />
+         <v-text-field label="Item Qty" v-model="itemQty" dense />
       </v-col>
        <v-col>
-         <v-text-field label="Imprint Locations" v-model="ImpLocations" />
+         <v-text-field label="Imprint Locations" v-model="ImpLocations" dense />
       </v-col>
         <v-col>
-         <v-text-field label="Imprint Colors/Location" v-model="ImpNumColors" />
+         <v-text-field label="Imprint Colors/Location" v-model="ImpNumColors" dense />
       </v-col>
        </v-row>
        <v-row>
@@ -32,10 +34,15 @@
           <v-checkbox label="Exact Rerun" v-model="exactRerun" />
         </v-col>
         <v-col>
-         <v-checkbox label="PMS Match" v-model="pmsMatch" />
+         <v-checkbox label="PMS Match" v-model="pmsMatch" @click="checkit()" />
+         <v-text-field v-if="pmsMatch" label="Num of PMS Match Colors" type="number" v-model="numPmsMatches" dense />
       </v-col>
        <v-col>
-         <v-text-field label="# of Ship-To Addresses" v-model="numAddresses" />
+         <v-checkbox label="Dark Color Flash" v-model="flashChg" @click="checkFlash()" />
+         <v-text-field v-if="flashChg" label="Num of Flashes" type="number" v-model="numFlashChgs" dense />
+      </v-col>
+       <v-col>
+         <v-text-field label="# of Ship-To Addresses" type="number" v-model="numAddresses" />
       </v-col>
       </v-row>
        </v-card-text>
@@ -121,6 +128,9 @@ export default {
       numAddresses: 1,
       exactRerun: false,
       pmsMatch: false,
+      numPmsMatches: 0,
+      flashChg: false,
+      numFlashChgs: 0,
       results: '',
       additionalChgs: [],
       printSubtotal: 0,
@@ -174,13 +184,23 @@ export default {
     }
   },
   methods:{
+    checkFlash(){
+     if(!this.flashChg){
+        this.numFlashChgs = 0
+      }
+    },
+    checkit(){
+      if(!this.pmsMatch){
+        this.numPmsMatches = 0
+      }
+    },
     calcCharges(){
       this.addlSubtotal=0
       this.printSubtotal=0
       this.grandTotal=0
       for(var i = 0;  i < this.additionalChgs.length; i++){
         if(this.additionalChgs[i].apply){
-          this.addlSubtotal = this.addlSubtotal + parseInt(this.additionalChgs[i].lineTotal)
+          this.addlSubtotal = this.addlSubtotal + (this.additionalChgs[i].lineTotal)
         }
       }
       this.printSubtotal = (this.results.cost * this.itemQty)
@@ -213,8 +233,16 @@ export default {
            apply =true
         }
         if(e.chargeId == 'setup'){ apply=true }
-        if(e.chargeId == 'pmsMatch' && this.pmsMatch){
-          lineChgTotal = this.ImpNumColors * e.cost
+        if(e.chargeId == 'pmsMatch' && this.numPmsMatches>0){
+          lineChgTotal = this.numPmsMatches * e.cost
+          apply = true
+        }
+        if(e.chargeId == 'darkColorFlash' && this.numFlashChgs>0){
+          lineChgTotal =  this.numFlashChgs * e.cost
+          apply = true
+        }
+        if(e.chargeId == 'dropShip' && this.numAddresses>1){
+          lineChgTotal = this.numAddresses * e.cost
           apply = true
         }
           this.additionalChgs.push({
