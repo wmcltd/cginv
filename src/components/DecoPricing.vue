@@ -23,12 +23,20 @@
          <v-text-field label="Item Qty" v-model="itemQty" dense />
       </v-col>
        <v-col>
-         <v-text-field label="Imprint Locations" v-model="ImpLocations" dense />
+         <v-text-field label="Imprint Locations" v-model.number="ImpLocations" @change=updateLocationArray() type="number" dense />
       </v-col>
-        <v-col>
-         <v-text-field label="Imprint Colors/Location" v-model="ImpNumColors" dense />
-      </v-col>
-       </v-row>
+     
+       
+      </v-row>
+      <!-- location rows (dynamic)-->
+      <v-row v-for="(val,index) in ImpLocations" :key="val" style="background:#DBECF0; border-top:1px solid #DEDEDE;border-bottom:1px solid #DEDEDE;margin-bottom:1px;">
+          <v-col cols="2"><v-label><span style="font-weight:600;">Location # </span>{{val}}</v-label>
+          </v-col>
+          <v-col cols="2">
+             <v-text-field label="Imprint Colors/Location" v-model="ImpLocationArray[index].impNumColors" dense />
+             </v-col>
+      </v-row>
+
        <v-row>
         <v-col>
           <v-checkbox label="Exact Rerun" v-model="exactRerun" />
@@ -46,21 +54,27 @@
       </v-col>
       </v-row>
        </v-card-text>
-       <v-row>
+      
        <v-card-actions>
-        <v-col>
-         <v-btn x-small color="primary" @click="search()">Calculate</v-btn>
-        
-        </v-col>
-       </v-card-actions>
-        </v-row>
-      </v-card> 
+         <v-row align="center" >
 
+        <!-- <v-col cols="8"></v-col>   -->
+        <v-col>
+          <v-btn small color="primary" @click="search()">Calculate</v-btn>
+        </v-col>
+        
+          </v-row>
+       </v-card-actions>
+      
+      </v-card> 
+      <hr />
+      
       <v-card class="mb-8" >
         <v-card-title class="card-title">Results</v-card-title>
-        <v-card-text v-if="showResults">
+        <!-- <v-card-text v-if="showResults"> -->
+         <v-card-text v-if="1==1">
           <v-row class="ml-2">
-          <h3>Deco Cost/piece: <span style="color:green; font-size:1.2rem;">${{results.cost}}</span></h3>
+          <h3>Deco Cost/piece: <span style="color:green; font-size:1.2rem;">${{decoCostPerPiece}}</span></h3>
          </v-row>
          <v-row class="mt-10 ml-2">
          <h3>Additional Charges</h3>
@@ -124,7 +138,13 @@ export default {
       impMethod: 'silkscreen',
       itemQty: '',
       ImpLocations: 1,
-      ImpNumColors: 1,
+      ImpLocationArray: [
+         {
+         locationNum: 1,
+         impNumColors: 1
+         }
+      ],
+      decoCostPerPiece: 0,
       numAddresses: 1,
       exactRerun: false,
       pmsMatch: false,
@@ -184,6 +204,18 @@ export default {
     }
   },
   methods:{
+    updateLocationArray(){
+      this.ImpLocationArray.push(
+        {
+         locationNum: this.ImpLocations,
+         impNumColors: 1
+        }
+      )
+    },
+   /* @TODO  */
+    deleteLocationArray(){
+      this.ImpLocationArray.splice(1)
+    },
     checkFlash(){
      if(!this.flashChg){
         this.numFlashChgs = 0
@@ -195,77 +227,102 @@ export default {
       }
     },
     calcCharges(){
+      console.log('start calcCharges')
       this.addlSubtotal=0
-      this.printSubtotal=0
+      // this.printSubtotal=0
       this.grandTotal=0
       for(var i = 0;  i < this.additionalChgs.length; i++){
         if(this.additionalChgs[i].apply){
           this.addlSubtotal = this.addlSubtotal + (this.additionalChgs[i].lineTotal)
         }
       }
-      this.printSubtotal = (this.results.cost * this.itemQty)
+     // this.printSubtotal = (this.results.cost * this.itemQty)
       this.grandTotal = (this.addlSubtotal) + (this.printSubtotal)
+      this.decoCostPerPiece =  (this.printSubtotal/this.itemQty)
+      this.decoCostPerPiece = this.decoCostPerPiece.toFixed(2)
     },
     search(){
-     
+      // var sumColors = 0
+      // for(var l = 0; l < this.ImpLocationArray.length; l++){
+      //   sumColors+=parseInt(this.ImpLocationArray[l].impNumColors)
+      // }
       this.additionalChgs = []
+      var totalPrintCharges = 0
+      /* Find the selected decorator data for the selected imprint method */
       var results = this.decorators.filter(e =>{
         return e.supplierId === this.vendor &&
           e.impMethod === this.impMethod
       })
-     
-      if(results.length>0){
-        var printCharges = results[0].printCharges.filter(e =>{
-          return  e.itemMinQty <= this.itemQty &&
-            e.itemMaxQty >= this.itemQty &&
-            e.impColorQty == this.ImpNumColors
-        })
-        var additionalChgs = results[0].additionalChgs
-        var lineChgTotal = 0
-        var apply = false
-        additionalChgs.forEach(e => {
-          if(e.charType === 'perColor'){
-            // alert(e.chargeId +', '+e.charType + ' #colors '+ this.ImpNumColors)
-            lineChgTotal = this.ImpNumColors * parseInt(e.cost)
-            console.log('setup costs: color, cost',  this.ImpNumColors,  e.cost)
-          }
-        if(e.chargeId == 'exactRerunSetup' && this.exactRerun){
-           apply =true
-        }
-        if(e.chargeId == 'setup'){ apply=true }
-        if(e.chargeId == 'pmsMatch' && this.numPmsMatches>0){
-          lineChgTotal = this.numPmsMatches * e.cost
-          apply = true
-        }
-        if(e.chargeId == 'darkColorFlash' && this.numFlashChgs>0){
-          lineChgTotal =  this.numFlashChgs * e.cost
-          apply = true
-        }
-        if(e.chargeId == 'dropShip' && this.numAddresses>1){
-          lineChgTotal = this.numAddresses * e.cost
-          apply = true
-        }
-          this.additionalChgs.push({
-            chargeId: e.chargeId,
-            chargeType: e.charType,
-            cost: e.cost,
-            lineTotal:lineChgTotal,
-            apply: apply
-          })
+      /* For each location, return the print charge rate for this decorator */
 
-          lineChgTotal = 0
-          apply = false
-        });
+      if(results.length>0){
+        var printCharges = 0
+        var lineChgTotal = 0
+        this.ImpLocationArray.forEach(loc =>{ //start of location loop
+          printCharges = results[0].printCharges.filter(e =>{
+            return  e.itemMinQty <= this.itemQty &&
+            e.itemMaxQty >= this.itemQty &&
+            e.impColorQty == loc.impNumColors
+          })
+          totalPrintCharges+= ((printCharges[0].cost) * this.itemQty)
+          console.log('location/rate', loc, printCharges[0].cost, totalPrintCharges)
+      //  })
+          console.log('totalPrintCharges',  totalPrintCharges)
+          var additionalChgs = results[0].additionalChgs
+          // var lineChgTotal = 0
+          var apply = false
+        
+          additionalChgs.forEach(e => {
+            console.log('additionalChgs for location', loc.locationNum)
+            if(e.charType === 'perColor'){
+              // alert(e.chargeId +', '+e.charType + ' #colors '+ this.ImpNumColors)
+              lineChgTotal = lineChgTotal + (loc.impNumColors * parseInt(e.cost))
+              console.log('setup costs: #colors, cost/color', loc.impNumColors,  e.cost, 'total ='+lineChgTotal)
+              
+            }
+            if(e.chargeId == 'exactRerunSetup' && this.exactRerun){
+              apply =true
+            }
+            if(e.chargeId == 'setup'){ apply=true }
+            if(e.chargeId == 'pmsMatch' && this.numPmsMatches>0){
+              lineChgTotal = this.numPmsMatches * e.cost
+              apply = true
+            }
+            if(e.chargeId == 'darkColorFlash' && this.numFlashChgs>0){
+              lineChgTotal =  this.numFlashChgs * e.cost
+              apply = true
+            }
+            if(e.chargeId == 'dropShip' && this.numAddresses>1){
+              lineChgTotal = this.numAddresses * e.cost
+              apply = true
+              console.log('dropShip charge', lineChgTotal)
+            }
+              this.additionalChgs.push({
+                chargeId: e.chargeId+" ( Location:"+loc.locationNum+")",
+                chargeType: e.charType,
+                cost: e.cost,
+                lineTotal:lineChgTotal,
+                apply: apply
+              })
+
+            lineChgTotal = 0
+            apply = false
+          });
+        
+        }) //end of location loop
       }
-      if(printCharges.length>0){
-        //printCharges[0].cost =printCharges[0].cost.toFixed(2)
-        this.results = printCharges[0]
-       // this.printSubtotal = this.printSubtotal + (printCharges[0].cost * this.itemQty)
+      this.printSubtotal = totalPrintCharges
+      // if(totalPrintCharges>0){
+      //   //printCharges[0].cost =printCharges[0].cost.toFixed(2)
+      //   this.results =totalPrintCharges
+        
+      //  // this.printSubtotal = this.printSubtotal + (printCharges[0].cost * this.itemQty)
        
-      }else{
-        this.results = 'no results found'
-      }
+      // }else{
+      //   this.results = 'no results found'
+      // }
       this.calcCharges()
+      this.showResults=true
     }
    
   }
@@ -281,4 +338,10 @@ export default {
   color:#FFF;
   margin-bottom:20px;
 }
+
+</style>
+<style>
+tbody tr:nth-of-type(odd) {
+   background-color: rgba(0, 0, 0, .05);
+ }
 </style>
