@@ -154,9 +154,9 @@ export default {
     };
   },
   created() {
-    // this.supplierData = this.supplierData.sort((a, b) =>
-    //   a.supplierId > b.supplierId ? 1 : -1
-    // );
+    this.supplierData = this.supplierData.sort((a, b) =>
+      a.supplierId > b.supplierId ? 1 : -1
+    );
     this.$store.dispatch("setSuppliers")
   
   },
