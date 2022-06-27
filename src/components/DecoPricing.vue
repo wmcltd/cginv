@@ -293,9 +293,15 @@ export default {
               apply = true
             }
             if(e.chargeId == 'dropShip' && this.numAddresses>1){
-              lineChgTotal = this.numAddresses * e.cost
-              apply = true
-              console.log('dropShip charge', lineChgTotal)
+               //only apply this once per order (e.g. 1st location only), not for EACH location
+              if(loc.locationNum == 1){
+                lineChgTotal = this.numAddresses * e.cost
+                apply = true
+                console.log('dropShip charge', lineChgTotal)
+              }else{
+                lineChgTotal = 0
+              }
+
             }
               this.additionalChgs.push({
                 chargeId: e.chargeId+" ( Location:"+loc.locationNum+")",
