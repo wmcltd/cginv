@@ -28,8 +28,8 @@
     },
     data() {
       return {
-        showDeco: true,
-        showInventory: false,
+        showDeco: false,
+        showInventory: true,
         showProductData: false,
       }
     },
