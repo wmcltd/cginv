@@ -182,6 +182,13 @@
       "version": "2.0.0",
       "username": "denar@corporategift.com",
       "pwd": "Corporate1@gift"
+    },
+    {
+      "supplierId": "Starline",
+      "endpoint": "https://services.starline.com/InventoryService/CustomerInventoryServiceV2.svc",
+      "version": "2.0.0",
+      "username": "corporategift",
+      "pwd": "7A99C93C-E4B8-4FFA-A6E2-D9F30A8ADC52"
     }
     
   ]
