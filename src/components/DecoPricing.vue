@@ -42,7 +42,7 @@
           <v-col cols="2"><v-label><span style="font-weight:600;">Location # </span>{{val}}</v-label>
           </v-col>
           <v-col cols="2">
-             <v-text-field label="Imprint Colors/Location" v-model="ImpLocationArray[index].impNumColors" dense />
+             <v-text-field label="# of Imprint Colors" v-model="ImpLocationArray[index].impNumColors" dense />
              </v-col>
           <v-col cols="2" v-if="showStitchCount() ">
             <v-text-field label="Stitch Count" v-model="ImpLocationArray[index].stitchCount" dense />
