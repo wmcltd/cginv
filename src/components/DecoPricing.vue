@@ -15,9 +15,18 @@
           outlined
           dense
         />
+        <!-- {{availMethods}} -->
       </v-col>
       <v-col>
-         <v-text-field label="Deco Method" v-model="impMethod" dense />
+         <!-- <v-text-field label="Deco Method" v-model="impMethod" dense /> -->
+         <v-select
+          :items="availMethods"
+          item-text="method"
+          item-value="code"
+          v-model="impMethod"
+          outlined
+          dense
+         />
       </v-col>
        <v-col>
          <v-text-field label="Item Qty" v-model="itemQty" dense />
@@ -35,6 +44,9 @@
           <v-col cols="2">
              <v-text-field label="Imprint Colors/Location" v-model="ImpLocationArray[index].impNumColors" dense />
              </v-col>
+          <v-col cols="2" v-if="showStitchCount() ">
+            <v-text-field label="Stitch Count" v-model="ImpLocationArray[index].stitchCount" dense />
+          </v-col>
       </v-row>
 
        <v-row>
@@ -121,7 +133,7 @@
 </template>
 
 <script>
-import decorators from '@/assets/decorators.json'
+import decorators from '@/assets/decorators2.json'
 import VueJsonPretty from "vue-json-pretty";
 import "vue-json-pretty/lib/styles.css";
 
@@ -189,6 +201,25 @@ export default {
       }
       return false
     },
+    /** @method
+     * Return all methods avaiable from the selected decorator/supplier
+     */
+    availMethods(){
+    // alert('vendor '+JSON.stringify(this.decorators))
+    var availImpMethods = []
+    var decorator = this.decorators.filter(e=>{
+      return e.supplierId == this.vendor
+    })
+    if(decorator.length>0){
+      for(var i = 0; i < decorator.length; i++){
+        availImpMethods.push({'method' : decorator[i].impMethod.toUpperCase(), 'code' : decorator[i].impMethod })
+      }
+      //alert('found ' + JSON.stringify( availImpMethods ))
+      return availImpMethods
+    }else{
+      return ''
+    }
+    },
     decoratorNames(){
       var decoratorNames = []
       var curDecorator = ''
@@ -204,6 +235,12 @@ export default {
     }
   },
   methods:{
+    showStitchCount(){
+      if(this.impMethod === 'embroidery'){
+        return true
+      }
+      return false
+    },
     updateLocationArray(){
       this.ImpLocationArray.push(
         {
