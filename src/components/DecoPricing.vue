@@ -71,8 +71,11 @@
          <v-row align="center" >
 
         <!-- <v-col cols="8"></v-col>   -->
-        <v-col>
+        <v-col cols="2">
           <v-btn small color="primary" @click="search()">Calculate</v-btn>
+        </v-col>
+        <v-col cols="4">
+          <span style="color: red;">{{errorMsg}}</span>
         </v-col>
         
           </v-row>
@@ -168,6 +171,7 @@ export default {
       printSubtotal: 0,
       addlSubtotal: 0,
       grandTotal: 0,
+      errorMsg: '',
       additionalChgHeaders:[
         {
           text: 'Charge Item',
@@ -301,6 +305,11 @@ export default {
             e.itemMaxQty >= this.itemQty &&
             e.impColorQty == loc.impNumColors
           })
+          if(printCharges.length == 0){
+            this.errorMsg = "Invalid quanity or number of colors."
+          }else{
+            this.errorMsg = ''
+          }
           totalPrintCharges+= ((printCharges[0].cost) * this.itemQty)
           console.log('location/rate', loc, printCharges[0].cost, totalPrintCharges)
       //  })
