@@ -49,7 +49,12 @@
 
     </v-data-table>
     <!-- <div>{{ productData }}</div> -->
-
+       <vue-json-to-csv :json-data="rawProductData" csv-title="ProductData" >
+              <v-btn color="primary" small class="mt-3 mr-6"
+                 disabled="false">
+                Export Product Data File <i class="mdi mdi-export-variant" aria-hidden="true"></i>
+              </v-btn>
+            </vue-json-to-csv>
      <p style="font-size: 1rem; color: #6d6d6d">
           RawData | <v-btn
             x-small
@@ -77,10 +82,11 @@
 import supplierEndpoints from "../assets/supplierEndpoints.json"
 import VueJsonPretty from "vue-json-pretty";
 import "vue-json-pretty/lib/styles.css";
-
+import VueJsonToCsv from 'vue-json-to-csv'
 export default {
   components:{
     VueJsonPretty,
+   VueJsonToCsv
   },  
   data() {
     return {

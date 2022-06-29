@@ -131,7 +131,7 @@
           >
           </vue-json-pretty>
       </div>
-   
+      
   </v-container>
 </template>
 
@@ -142,7 +142,8 @@ import "vue-json-pretty/lib/styles.css";
 
 export default {
   components:{
-    VueJsonPretty
+    VueJsonPretty,
+   
   },
   data() {
     return {
