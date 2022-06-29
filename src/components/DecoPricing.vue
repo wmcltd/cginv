@@ -283,10 +283,7 @@ export default {
       this.decoCostPerPiece = this.decoCostPerPiece.toFixed(2)
     },
     search(){
-      // var sumColors = 0
-      // for(var l = 0; l < this.ImpLocationArray.length; l++){
-      //   sumColors+=parseInt(this.ImpLocationArray[l].impNumColors)
-      // }
+
       this.additionalChgs = []
       var totalPrintCharges = 0
       /* Find the selected decorator data for the selected imprint method */
@@ -377,6 +374,9 @@ export default {
       this.showResults=true
     }
    
+  },
+  embroideryDecoCalc(){
+    //TODO
   }
     
    

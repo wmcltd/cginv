@@ -246,7 +246,7 @@ export default {
         </soap:Body>
       </soap:Envelope>`;
       } else {
-        //version 2
+        //version 2.0.0
         qry =
           `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.promostandards.org/WSDL/InventoryService/2.0.0/" xmlns:shar="http://www.promostandards.org/WSDL/InventoryService/2.0.0/SharedObjects/">
               <soapenv:Header/>
@@ -306,9 +306,10 @@ export default {
           try{
             if(result.Envelope.Body.Reply.productID.toUpperCase() !== this.productId.toUpperCase()){
                var productNotFoundErr =  result.Envelope.Body.Reply.productID
+               this.$store.dispatch('setOverlay', false)
                console.log('product Error', productNotFoundErr)
                this.errorMsg = 'Product Id '+productNotFoundErr
-               this.$store.dispatch('setOverlay', false)
+              
             }
            
           }catch(e){
@@ -317,7 +318,7 @@ export default {
           try {
             this.errorMsg =
               result.Envelope.Body.GetInventoryLevelsResponse.ServiceMessageArray.ServiceMessage.description;
-            this.overlay = false;
+             this.$store.dispatch('setOverlay', false)
           } catch (e) {
             //no errors
             this.errorMsg = "";
