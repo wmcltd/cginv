@@ -117,9 +117,10 @@
       "supplierId": "Logomark",
       "endpoint": "https://psapi.logomark.com/LogomarkInventoryService.svc",
       "version": "1.2.1",
-      "username": "CorporateGift.com",
-      "pwd": "a414ce90-1298-43b0-bdb7-671e9ba307c1"
+      "username": "a414ce90-1298-43b0-bdb7-671e9ba307c1",
+      "pwd": ""
     },
+   
 {
       "supplierId": "AAA Innovations",
       "endpoint": "https://aaa.suitextend.net/v1/promo-supplier/promoinventory/v200/inventoryservice",
