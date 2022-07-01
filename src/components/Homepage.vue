@@ -8,7 +8,7 @@
         <v-btn @click="clearOverlay()">Cancel</v-btn>
       </v-row>
     </v-overlay>
-    <h2 class="mb-5">Supplier Inventory Search</h2>
+    <h2 class="mb-5">Supplier Inventory Search</h2> - {{curSupplier}}
     <v-card style="background:#F5F5F5;">
       <v-card-text>
     <v-row>
@@ -182,7 +182,10 @@ export default {
         return altInv
       }
       
-    }
+    },
+    // supplier(){
+    //   return this.$store.getters.getSupplier
+    // }
   },
   methods: {
     // getData(itemId){

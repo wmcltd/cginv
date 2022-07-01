@@ -161,14 +161,19 @@ export default new Vuex.Store({
           }
           
           var pointString = "";
-          var productCategories = productData.ProductCategoryArray.ProductCategory.category
+          var productCategories = ''
+          if('ProductCategoryArray' in productData){
+           productCategories = productData.ProductCategoryArray.ProductCategory.category
+          }
+
           for (var i = 0; i < marketingPoints.length; i++) {
-            pointString += i + 1 + ") " + marketingPoints[i].pointCopy + ", ";
+            pointString += "<li>" + marketingPoints[i].pointCopy + "</li>";
           }
           var productPartArray = productData.ProductPartArray.ProductPart
           console.log('productPartArray', productPartArray)
           var parts = []
           var labelSize = ''
+          var color_size = ''
           for(var n = 0; n < productPartArray.length; n++){
             if('ApparelSize' in productPartArray[n] ){
               labelSize = productPartArray[n].ApparelSize.labelSize
@@ -180,19 +185,31 @@ export default new Vuex.Store({
                'color' : productPartArray[n].ColorArray.Color.colorName
               }
             )
+            //create a comma-separated list of colors/sizes
+            color_size = color_size +  productPartArray[n].ColorArray.Color.colorName +'/'+labelSize+','
+            var productBrand = ''
+            if( 'productBrand' in productData){
+              productBrand = productData.productBrand
+            }
+            // var productCategory = ''
+            // if(productCategories.length>0){
+            //   productCategory ==productCategories
+            // }
           }
           var data = [];
           data.push({
             productId: productData.productId,
             productName: productData.productName,
-            productBrand: productData.productBrand,
+            productBrand: productBrand,
             productDesc: productData.description,
             marketingPoints: pointString,
             productCategory : productCategories,
-            parts: parts
+            parts: parts,
+            colorsSizes: color_size,
 
           });
           console.log("body:---", body);
+          console.log('filtered data to push', data)
           commit("SET_PRODUCT_DATA", data[0]);
           commit('SET_OVERLAY', false)
         });

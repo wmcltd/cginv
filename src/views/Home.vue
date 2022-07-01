@@ -1,10 +1,11 @@
-<template>
+<template fluid>
   <div class="home">
     <!-- <img alt="Vue logo" src="../assets/logo.png" />
     <HelloWorld msg="Welcome to Your Vue.js App" /> -->
     <v-btn class="mr-1" @click="showInventory = !showInventory" :color=setInvBtn()>Inventory Search</v-btn>
-    <v-btn class="mr-1" @click="showDeco = !showDeco" :color=setDecoBtn()>Deco Calculator</v-btn>
     <v-btn class="mr-1" @click="showProductData = !showProductData" :color=setProductDataBtn()>Product Data</v-btn>
+    <v-btn class="mr-1" @click="showDeco = !showDeco" :color=setDecoBtn()>Deco Calculator</v-btn>
+   
     <Decoration v-if="showDeco" />
 
     <Homepage v-if="showInventory" />
