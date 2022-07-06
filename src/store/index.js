@@ -167,7 +167,7 @@ export default new Vuex.Store({
           }
 
           for (var i = 0; i < marketingPoints.length; i++) {
-            pointString += "<li>" + marketingPoints[i].pointCopy + "</li>";
+            pointString += "<li>" +  marketingPoints[i].pointType + ": " + marketingPoints[i].pointCopy + "</li>";
           }
           var productPartArray = productData.ProductPartArray.ProductPart
           console.log('productPartArray', productPartArray)
@@ -192,12 +192,19 @@ export default new Vuex.Store({
             if( 'productBrand' in productData){
               productBrand = productData.productBrand
             }
+            var productId = ''
+            if('productId' in productData){
+                productId =  productData.productId
+              }else{
+                productId = productData.productID
+              }
+            // var qty
             // var productCategory = ''
             // if(productCategories.length>0){
             //   productCategory ==productCategories
             // }
             lines.push({
-              productId : productData.productId,
+              productId : productId,
               productName: productData.productName,
               partId: productPartArray[n].partId,
               productDesc: productData.description,
@@ -213,7 +220,7 @@ export default new Vuex.Store({
           }
           var data = [];
           data.push({
-            productId: productData.productId,
+            productId: productId,
             productName: productData.productName,
             productBrand: productBrand,
             productDesc: productData.description,

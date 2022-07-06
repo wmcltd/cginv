@@ -157,12 +157,21 @@
       "pwd": "RFA6HG2-D0XMV8C-MWFBRT2-E383EE6"
     },
     {  
-      "supplierId": "Peerless Umbrella Co.",
+      "supplierId": "Peerless Umbrella Co. 2.0.0",
       "Supplier Code": "PEERLESSUMBRELLACO",
       "version": "2.0.0",
       "username": "CED75D76-130C-4DA8-BBEA-E59C3F3F1ADC",
       "pwd": "RFA6HG2-D0XMV8C-MWFBRT2-E383EE6",
       "endpoint": "https://api.dc-onesource.com/xml/PEERLESSUMBRELLACO/INV/2.0.0/soap"
+    },
+    {
+        "supplierId": "Peerless Umbrella Co. 1.2.1",
+      "Supplier Code": "PEERLESSUMBRELLACO",
+      "version": "1.2.1",
+      "username": "CED75D76-130C-4DA8-BBEA-E59C3F3F1ADC",
+      "pwd": "RFA6HG2-D0XMV8C-MWFBRT2-E383EE6",
+      "endpoint": " https://api.dc-onesource.com/xml/PEERLESSUMBRELLACO/INV/1.2.1/soap"
+     
     },
     {
        "supplierId": "Gold Bond",

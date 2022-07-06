@@ -307,13 +307,24 @@ export default {
             throw err;
           }
           try{
-            if(result.Envelope.Body.Reply.productID.toUpperCase() !== this.productId.toUpperCase()){
-               var productNotFoundErr =  result.Envelope.Body.Reply.productID
+            var productNotFoundErr = ''
+            if('productID' in result.Envelope.Body.Reply){
+               if(result.Envelope.Body.Reply.productID.toUpperCase() !== this.productId.toUpperCase()){
+               productNotFoundErr =  result.Envelope.Body.Reply.productID
                this.$store.dispatch('setOverlay', false)
                console.log('product Error', productNotFoundErr)
                this.errorMsg = 'Product Id '+productNotFoundErr
-              
-            }
+              }
+            }else{alert('productID not found')}
+            if('productId' in result.Envelope.Body.Reply){
+               if(result.Envelope.Body.Reply.productId.toUpperCase() !== this.productId.toUpperCase()){
+               productNotFoundErr =  result.Envelope.Body.Reply.productID
+               this.$store.dispatch('setOverlay', false)
+               console.log('product Error', productNotFoundErr)
+               this.errorMsg = 'Product Id '+productNotFoundErr  
+              }
+            }else{alert('productId not found')}
+           
            
           }catch(e){
             console.log(e)
@@ -372,13 +383,17 @@ export default {
                   //console.log('LABEL SIZE FOUND')
                   size = element.labelSize;
                 }
-                if (element.quantityAvailable.Quantity.value) {
-                  quantityAvailable = element.quantityAvailable.Quantity.value;
-                } else if ("quantityAvailable" in itemArray) {
-                  quantityAvailable = element.quantityAvailable.Quantity.value;
-                } else {
-                  quantityAvailable = "N/A";
-                }
+                // if (element.quantityAvailable.Quantity.value) {
+                //   quantityAvailable = element.quantityAvailable.Quantity.value;
+                // } else if ("quantityAvailable" in itemArray) {
+                //   quantityAvailable = element.quantityAvailable.Quantity.value;
+                // } else {
+                //   quantityAvailable = "N/A";
+                // }
+               var  quantityAvailable = 'n/a'
+              if('quantityAvailable' in itemArray){
+                quantityAvailable = itemArray.quantityAvailable.Quantity.value
+              }
                 this.partDesc = element.partDescription;
                 this.items.push({
                   productId: this.foundProductID,
@@ -390,12 +405,17 @@ export default {
               });
             } else {
               //parse single item from version 2.0.0
+              quantityAvailable = 'n/a'
+              if('quantityAvailable' in itemArray){
+                quantityAvailable = itemArray.quantityAvailable.Quantity.value
+              }
+              
               this.items.push({
-               productId: this.foundProductID,
+                productId: this.foundProductID,
                 partId: itemArray.partId,
                 attributeColor: itemArray.partColor,
-               attributeSize: itemArray.labelSize,
-                quantityAvailable: itemArray.quantityAvailable.Quantity.value,
+                attributeSize: itemArray.labelSize,
+                quantityAvailable: quantityAvailable,
               });
             }
           } else {
