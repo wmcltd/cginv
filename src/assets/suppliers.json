@@ -156,6 +156,14 @@
       "username": "CED75D76-130C-4DA8-BBEA-E59C3F3F1ADC",
       "pwd": "RFA6HG2-D0XMV8C-MWFBRT2-E383EE6"
     },
+    {  
+      "supplierId": "Peerless Umbrella Co.",
+      "Supplier Code": "PEERLESSUMBRELLACO",
+      "version": "2.0.0",
+      "username": "CED75D76-130C-4DA8-BBEA-E59C3F3F1ADC",
+      "pwd": "RFA6HG2-D0XMV8C-MWFBRT2-E383EE6",
+      "endpoint": "https://api.dc-onesource.com/xml/PEERLESSUMBRELLACO/INV/2.0.0/soap"
+    },
     {
        "supplierId": "Gold Bond",
       "endpoint": "https://ordertrax.essent.com/sites/goldbond/inventory/inventory.svc",
@@ -190,6 +198,13 @@
       "version": "2.0.0",
       "username": "corporategift",
       "pwd": "7A99C93C-E4B8-4FFA-A6E2-D9F30A8ADC52"
+    },
+    {
+      "supplierId": "NC Custom",
+      "endpoint": "https://ws.lancopromo.com/inventory/121",
+      "version": "1.2.1",
+      "username": "AC6751",
+      "pwd": "T3uhZ#wY"
     }
     
   ]

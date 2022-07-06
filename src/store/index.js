@@ -171,6 +171,7 @@ export default new Vuex.Store({
           }
           var productPartArray = productData.ProductPartArray.ProductPart
           console.log('productPartArray', productPartArray)
+          var lines = []
           var parts = []
           var labelSize = ''
           var color_size = ''
@@ -195,6 +196,20 @@ export default new Vuex.Store({
             // if(productCategories.length>0){
             //   productCategory ==productCategories
             // }
+            lines.push({
+              productId : productData.productId,
+              productName: productData.productName,
+              partId: productPartArray[n].partId,
+              productDesc: productData.description,
+              marketingPoints: pointString,
+              productCategory : productCategories,
+              productBrand : productBrand,
+              size : labelSize,
+              color : productPartArray[n].ColorArray.Color.colorName,
+              
+             
+
+            })
           }
           var data = [];
           data.push({

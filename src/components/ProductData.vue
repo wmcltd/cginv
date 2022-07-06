@@ -78,7 +78,7 @@
       </template> -->
 
     </v-data-table>
-    <!-- <div>{{ productData }}</div> -->
+    <div>{{ productData }}</div>
 
      <p style="font-size: 1rem; color: #6d6d6d">
           RawData | <v-btn
@@ -202,7 +202,7 @@ export default {
   },
   methods: {
     getSuppliers() {
-      alert('geting them')
+      //alert('geting them')
       this.$store.dispatch("setSuppliers").then((response) => {
         console.log(response);
         this.suppliers = this.$store.getters.getSuppliers;
