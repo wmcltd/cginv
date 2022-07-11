@@ -8,6 +8,8 @@
         <v-btn @click="clearOverlay()">Cancel</v-btn>
       </v-row>
     </v-overlay>
+ 
+    <v-btn @click="validateJson()">test validator</v-btn>
     <h2 class="mb-5">Supplier Inventory Search</h2> - {{curSupplier}}
     <v-card style="background:#F5F5F5;">
       <v-card-text>
@@ -192,6 +194,11 @@ export default {
     //   itemId='D100'
     //   this.$store.dispatch('setItemData',itemId)
     // },
+    validateJson(){
+      alert('go')
+      this.$store.dispatch("jsonValidate", this.rawData)
+    },
+
     clearItems() {
       this.items = [];
       this.rawData= [];

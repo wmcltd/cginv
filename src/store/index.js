@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
 import xml2js from "xml2js";
+// import jsonValidate from "jsonschema"
 
 Vue.use(Vuex);
 
@@ -14,8 +15,12 @@ export default new Vuex.Store({
     productId: '',
     invData: '',
     overlay: false,
+    jsonData: ''
   },
   mutations: {
+    SET_JSON(state, data){
+      state.jsonData = data
+    },
     SET_SUPPLIERS(state, data) {
       state.suppliers = data;
     },
@@ -375,6 +380,36 @@ export default new Vuex.Store({
       })
 
     },
+// 
+    jsonValidate({ commit }, jsonData){
+      console.log('jsonValidate start', jsonData)
+      commit('SET_JSON', jsonData)
+      // console.log('rawData')
+      // var schema = {"type" : "number"}
+
+      // const inventorySchema121 = {
+        
+      //   "properties": {
+      //    "partID":{
+      //       "description": "Unique part id, including variation",
+      //       "type": "string"
+      //     },
+      //     "dummyKey":{
+      //       "description": "Test Key",
+      //       "type": "string"
+      //     },
+      //     "partDescription": {
+      //       "description": "Text description of the product",
+      //       "type": "string"
+      //     }
+          
+      //   },
+        
+      // }
+      //var validationResult = jsonValidate.validate(jsonData, inventorySchema121)
+      //console.log(validationResult)
+      //commit('SET_JSON', validationResult)
+    }
     // getEndpoints(data){
     //   console.log('start getEndpoints', data)
     //   // axios.get('https://api.dc-onesource.com/ps/companies/'+data.supplierId+'/endpoints')
