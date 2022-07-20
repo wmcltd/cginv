@@ -135,7 +135,7 @@ export default {
           text: "Part ID",
           align: "start",
           sortable: true,
-          value: "partId",
+          value: "partID",
         },
         {
           text: "Color",
