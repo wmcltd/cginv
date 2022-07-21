@@ -398,8 +398,11 @@ export default {
                 //   quantityAvailable = "N/A";
                 // }
                var  quantityAvailable = 'n/a'
-              if('quantityAvailable' in itemArray){
-                quantityAvailable = itemArray.quantityAvailable.Quantity.value
+              // if('quantityAvailable' in itemArray){
+              //   quantityAvailable = itemArray.quantityAvailable.Quantity.value
+              // }
+              if('quantityAvailable' in element){
+                quantityAvailable = element.quantityAvailable.Quantity.value
               }
                 this.partDesc = element.partDescription;
 
