@@ -135,7 +135,7 @@ export default {
           text: "Part ID",
           align: "start",
           sortable: true,
-          value: "partID",
+          value: "partId",
         },
         {
           text: "Color",
@@ -402,9 +402,17 @@ export default {
                 quantityAvailable = itemArray.quantityAvailable.Quantity.value
               }
                 this.partDesc = element.partDescription;
+
+              var partId = ''
+              if('partID' in element){
+                partId = element.partID
+              }
+              if('partId' in element){
+                partId = element.partId
+              }
                 this.items.push({
                   productId: this.foundProductID,
-                  partId: element.partId,
+                  partId: partId,
                   attributeColor: color,
                   attributeSize: size,
                   quantityAvailable: quantityAvailable,
@@ -416,10 +424,16 @@ export default {
               if('quantityAvailable' in itemArray){
                 quantityAvailable = itemArray.quantityAvailable.Quantity.value
               }
-              
+              var partId = ''
+              if('partID' in itemArray){
+                partId = itemArray.partID
+              }
+              if('partId' in itemArray){
+                partId = itemArray.partId
+              }
               this.items.push({
                 productId: this.foundProductID,
-                partId: itemArray.partId,
+                partId: partId,
                 attributeColor: itemArray.partColor,
                 attributeSize: itemArray.labelSize,
                 quantityAvailable: quantityAvailable,
@@ -444,9 +458,16 @@ export default {
                   size = element.attributeSize;
                 }
                 this.partDesc = element.partDescription;
+                var partId = ''
+                if('partID' in element){
+                  partId = element.partID
+                }
+                if('partId' in element){
+                  partId = element.partId
+                }
                 this.items.push({
                   productId: this.foundProductID,
-                  partID: element.partID,
+                  partId: partId,
                   attributeColor: color,
                   attributeSize: size,
                   quantityAvailable: element.quantityAvailable,
@@ -457,9 +478,16 @@ export default {
                 color = itemArray.attributeColor;
               }
               this.partDesc = itemArray.partDescription;
+              
+              if('partID' in itemArray){
+                partId = itemArray.partID
+              }
+              if('partId' in itemArray){
+                partId = itemArray.partId
+              }
               this.items.push({
                 productId: this.foundProductID,
-                partID: itemArray.partID,
+                partId: partId,
                 attributeColor: color,
                 quantityAvailable: itemArray.quantityAvailable,
               });
