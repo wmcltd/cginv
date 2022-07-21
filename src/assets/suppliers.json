@@ -214,6 +214,14 @@
       "version": "1.2.1",
       "username": "AC6751",
       "pwd": "Dh2jpG#7"
+    },
+    {
+      "supplierId": "Sunjoy",
+      "endpoint": "http://sunjoy.co/ImpInventoryService.svc",
+      "version": "2.0.0",
+     
+      "username": "kICuvqcFM$VjvO2RUG1wpUDAg98v4sIgNPNFSktDoCnY"
+      
     }
     
   ]
