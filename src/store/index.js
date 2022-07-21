@@ -15,7 +15,8 @@ export default new Vuex.Store({
     productId: '',
     invData: '',
     overlay: false,
-    jsonData: ''
+    jsonData: '',
+    currentSupplier: '',
   },
   mutations: {
     SET_JSON(state, data){
@@ -23,6 +24,9 @@ export default new Vuex.Store({
     },
     SET_SUPPLIERS(state, data) {
       state.suppliers = data;
+    },
+    SET_CURRENT_SUPPLIER(state, data){
+      state.currentSupplier = data
     },
     SET_SUPPLIER(state, data) {
       state.supplier = data;
@@ -439,6 +443,9 @@ export default new Vuex.Store({
     },
     getOverlay(state){
       return state.overlay
+    },
+    getCurrentSuplier(state){
+      return state.currentSupplier
     }
   },
 });

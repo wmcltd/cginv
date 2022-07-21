@@ -7,7 +7,7 @@
      <!-- <v-btn @click="getSuppliers()">Get ALL Suppliers</v-btn> -->
   
     <v-row>
-    <v-col cols="2">
+    <v-col cols="4">
    <v-select
       label="PS Service"
       placeholder="Select Service"
@@ -25,7 +25,7 @@
       v-model="supplier"
       
     />
-   
+  
 
     
     <!-- <v-text-field placeholder="Enter Item" v-model="itemId" /> -->
@@ -198,6 +198,9 @@ export default {
     suppliers(){
       return this.$store.getters.getSuppliers
      
+    },
+    curSupplier(){
+      return this.$store.getters.getSupplier
     }
   },
   methods: {

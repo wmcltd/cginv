@@ -1,21 +1,20 @@
-{"data":
-  [
-        { 
-          "supplierId": "Primeline",
-          "endpoint": "https://api.primeline.com/soap/InventoryService.svc",
-          "version": "1.2.1",
-          "username": "denar@corporategift.com",
-          "pwd": "P9HghK5S"
-        },
-        {
-          "supplierId": "Alphabroder",
-          "endpoint": "https://services.alphabroder.com/inventory/InventoryService.svc",
-          "version": "1.2.1",
-          "username": "ps3369205",
-          "pwd": "vhSIpiY2"
-        },
-        {
-      "supplierId": "PCNA",
+{
+  "data": [{
+      "supplierId": "Primeline-Jetline",
+      "endpoint": "https://api.primeline.com/soap/InventoryService.svc",
+      "version": "1.2.1",
+      "username": "denar@corporategift.com",
+      "pwd": "P9HghK5S"
+    },
+    {
+      "supplierId": "Alphabroder",
+      "endpoint": "https://services.alphabroder.com/inventory/InventoryService.svc",
+      "version": "1.2.1",
+      "username": "ps3369205",
+      "pwd": "vhSIpiY2"
+    },
+    {
+      "supplierId": "PCNA (Leed's/Bullet/Trimark)",
       "endpoint": "https://psinventory121.pcna.online/psInventory.svc",
       "version": "1.2.1",
       "username": "CORPORATEGIFT",
@@ -36,7 +35,7 @@
       "pwd": "4WKEHRPv"
     },
     {
-      "supplierId": "Koozie Group",
+      "supplierId": "Koozie Group (previously BIC Graphic)",
       "endpoint": "https://services.kooziegroup.com/soa-infra/services/external/promostandards/inventory_v2.0.0",
       "version": "2.0.0",
       "username": "SYSCORPUJT",
@@ -50,85 +49,85 @@
       "pwd": "50bae7cd5bb86dab12a9a75502202244"
     },
 
-{
+    {
       "supplierId": "SanMar",
       "endpoint": "https://ws.sanmar.com:8080/promostandards/InventoryServiceBindingV2final?WSDL",
       "version": "2.0.0",
       "username": "CorporateGift",
       "pwd": "corporategift29"
     },
-{
+    {
       "supplierId": "Sweda",
       "endpoint": "https://ordertrax.essent.com/sites/sweda/inventoryV2/InventoryV2.svc",
       "version": "2.0.0",
       "username": "CORPORATEGIFTCOM",
       "pwd": "RmapqvMm"
     },
-{
+    {
       "supplierId": "Hirsch Gift",
       "endpoint": "https://webservice.hg-promo.com/PromoStandards/InventoryService/?wsdl",
       "version": "1.2.1",
       "username": "169228",
       "pwd": "e357c928-ee57-46aa-a430-19a0146b571f"
     },
-{
+    {
       "supplierId": "Cutter & Buck",
       "endpoint": "https://api.cbcorporate.com/promostandards/InventoryService200.asmx",
       "version": "2.0.0",
       "username": "CorporateGift",
       "pwd": "MXGj-1xRA-dxBg-SLx1-Gm1F-b2hS"
     },
-{
+    {
       "supplierId": "Fossa Apparel, Inc.",
       "endpoint": "https://ws.fossaapparel.com/InventoryServices.svc",
       "version": "2.0.0",
       "username": "corporategift.com",
       "pwd": "91d1ee83-cb0f-11ec-b0b4-0620c1513312"
     },
-{
+    {
       "supplierId": "ETS Express",
       "endpoint": "https://pstnd.etsexpress.com/InventoryServiceV2/CustomerInventoryService.svc",
       "version": "2.0.0",
       "username": "169228",
       "pwd": "d0dcd987-915d-4c5a-a245-0ccd8f416650"
     },
-{
+    {
       "supplierId": "Snugz",
       "endpoint": "https://api.snugzusa.com:7443/snugzwcf_inventoryv2/inventoryservice.svc",
       "version": "2.0.0",
       "username": "CorpGicom09",
       "pwd": "qy0G+uz9"
     },
-{
+    {
       "supplierId": "Origaudio",
       "endpoint": "https://promostandards.hubpen.biz/inventory/handstands",
       "version": "1.2.1",
       "username": "C73060",
       "pwd": "yM75huEQNZR7F4He"
     },
-{
-      "supplierId": "Jornik MFG Corp",
+    {
+      "supplierId": "Jornik Manufacturing Corp.",
       "endpoint": "https://inventory.jornikproofs.com/InventoryService.svc",
       "version": "2.0.0",
       "username": "TEST2",
       "pwd": "TestASI@123"
     },
-{
+    {
       "supplierId": "Logomark",
       "endpoint": "https://psapi.logomark.com/LogomarkInventoryService.svc",
       "version": "1.2.1",
       "username": "a414ce90-1298-43b0-bdb7-671e9ba307c1",
       "pwd": ""
     },
-   
-{
-      "supplierId": "AAA Innovations",
+
+    {
+      "supplierId": "aaa innovations",
       "endpoint": "https://aaa.suitextend.net/v1/promo-supplier/promoinventory/v200/inventoryservice",
       "version": "2.0.0",
       "username": "C14850CorporateGift",
       "pwd": "asxKVV92jXZNPV97"
     },
-{
+    {
       "supplierId": "Moderne Glass",
       "endpoint": "https://service.glassamerica.com/Inventory/v200/Inventory.php",
       "version": "2.0.0",
@@ -143,20 +142,20 @@
       "pwd": "07624"
     },
     {
-       "supplierId": "Gordon Sinclair",
+      "supplierId": "Gordon Sinclair",
       "endpoint": "https://gordonsinclair.suitextend.net/v1/promo-supplier/promoinventory/v121/inventoryservice",
       "version": "1.2.1",
       "username": "CorporateGift",
       "pwd": "Fa24R9TiS1A3@En927#"
     },
     {
-       "supplierId": "Maple Ridge",
+      "supplierId": "Maple Ridge Farms, Inc.",
       "endpoint": "https://api.dc-onesource.com/xml/MAPLERIDGEFARMSINC/INV/1.2.1/soap",
       "version": "1.2.1",
       "username": "CED75D76-130C-4DA8-BBEA-E59C3F3F1ADC",
       "pwd": "RFA6HG2-D0XMV8C-MWFBRT2-E383EE6"
     },
-    {  
+    {
       "supplierId": "Peerless Umbrella Co. 2.0.0",
       "Supplier Code": "PEERLESSUMBRELLACO",
       "version": "2.0.0",
@@ -165,37 +164,37 @@
       "endpoint": "https://api.dc-onesource.com/xml/PEERLESSUMBRELLACO/INV/2.0.0/soap"
     },
     {
-        "supplierId": "Peerless Umbrella Co. 1.2.1",
+      "supplierId": "Peerless Umbrella Co.",
       "Supplier Code": "PEERLESSUMBRELLACO",
       "version": "1.2.1",
       "username": "CED75D76-130C-4DA8-BBEA-E59C3F3F1ADC",
       "pwd": "RFA6HG2-D0XMV8C-MWFBRT2-E383EE6",
       "endpoint": " https://api.dc-onesource.com/xml/PEERLESSUMBRELLACO/INV/1.2.1/soap"
-     
+
     },
     {
-       "supplierId": "Gold Bond",
+      "supplierId": "Gold Bond World Wide",
       "endpoint": "https://ordertrax.essent.com/sites/goldbond/inventory/inventory.svc",
       "version": "1.2.1",
       "username": "CorporateGifts",
       "pwd": "b6ad9e3c-1f30-4595-8b5a-ed158f7291db"
     },
     {
-       "supplierId": "Terry Town",
+      "supplierId": "Terrytown",
       "endpoint": "http://terrytown.promostandardsservices.com/api2/InventoryService/CustomerInventoryService.svc",
       "version": "1.2.1",
       "username": "denar@corporategift.com",
       "pwd": "ejbj2351EJ"
     },
     {
-       "supplierId": "Charles River",
+      "supplierId": "Charles River Apparel",
       "endpoint": "https://ordertrax.essent.com/sites/charlesriverapparel/inventory/inventory.svc",
       "version": "1.2.1",
       "username": "ps000527@charlesriverapparel.com",
       "pwd": "Ilkj@iky35!"
     },
     {
-       "supplierId": "Ariel Premium",
+      "supplierId": "Ariel Premium Supply",
       "endpoint": "https://www2.arielpremium.com/WS/inventory/V2.0.0/api-server",
       "version": "2.0.0",
       "username": "denar@corporategift.com",
@@ -216,22 +215,22 @@
       "pwd": "Dh2jpG#7"
     },
     {
-      "supplierId": "Sunjoy",
+      "supplierId": "SunJoy",
       "endpoint": "http://sunjoy.co/ImpInventoryService.svc",
       "version": "2.0.0",
-     
+
       "username": "kICuvqcFM$VjvO2RUG1wpUDAg98v4sIgNPNFSktDoCnY"
-      
+
     },
     {
-      "supplierId": "S&S",
+      "supplierId": "S&S Activewear",
       "endpoint": "https://promostandards.ssactivewear.com/inventory/v2/inventoryservice.svc",
       "version": "2.0.0",
       "username": "corporategift",
-      "pwd": "4dfa3283-6468-4ded-9b58-8477fb3c4938" 
+      "pwd": "4dfa3283-6468-4ded-9b58-8477fb3c4938"
     }
 
-    
-    
+
+
   ]
 }
