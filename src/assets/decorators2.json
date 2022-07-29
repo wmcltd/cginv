@@ -1084,7 +1084,7 @@
         "charType": "perunit",
         "cost": 0.4
       }
-    ]
+    ]},
 {
     "supplierId": "MW Impressions",
     "impMethod": "silkscreen",
@@ -1317,7 +1317,5 @@
         "cost": 7
       }
     ]
-  }
-]
   }
 ]

@@ -228,7 +228,15 @@
       "version": "2.0.0",
       "username": "corporategift",
       "pwd": "4dfa3283-6468-4ded-9b58-8477fb3c4938"
+    },
+    {
+      "supplierId": "Showdown Displays",
+      "endpoint": "https://webapi.signzoneinc.com/promostandards/Inventory",
+      "version": "1.2.1",
+      "username": "promostandards_corporategift",
+      "pwd": "T935a9VyUBZv5jw9"
     }
+   
 
 
 
